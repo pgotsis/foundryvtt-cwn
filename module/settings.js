@@ -1,8 +1,8 @@
 export const registerSettings = function () {
 
-  game.settings.register("wwn", "randomHP", {
-    name: game.i18n.localize("WWN.Setting.RandomHP"),
-    hint: game.i18n.localize("WWN.Setting.RandomHPHint"),
+  game.settings.register("cwn", "randomHP", {
+    name: game.i18n.localize("CWN.Setting.RandomHP"),
+    hint: game.i18n.localize("CWN.Setting.RandomHPHint"),
     default: false,
     scope: "client",
     type: Boolean,
@@ -10,49 +10,49 @@ export const registerSettings = function () {
     requiresReload: true
   });
 
-  game.settings.register("wwn", "initiative", {
-    name: game.i18n.localize("WWN.Setting.Initiative"),
-    hint: game.i18n.localize("WWN.Setting.InitiativeHint"),
+  game.settings.register("cwn", "initiative", {
+    name: game.i18n.localize("CWN.Setting.Initiative"),
+    hint: game.i18n.localize("CWN.Setting.InitiativeHint"),
     default: "group",
     scope: "world",
     type: String,
     config: true,
     choices: {
-      individual: "WWN.Setting.InitiativeIndividual",
-      group: "WWN.Setting.InitiativeGroup",
+      individual: "CWN.Setting.InitiativeIndividual",
+      group: "CWN.Setting.InitiativeGroup",
     },
     requiresReload: true
   });
 
-  game.settings.register("wwn", "rerollInitiative", {
-    name: game.i18n.localize("WWN.Setting.RerollInitiative"),
-    hint: game.i18n.localize("WWN.Setting.RerollInitiativeHint"),
+  game.settings.register("cwn", "rerollInitiative", {
+    name: game.i18n.localize("CWN.Setting.RerollInitiative"),
+    hint: game.i18n.localize("CWN.Setting.RerollInitiativeHint"),
     default: "keep",
     scope: "world",
     type: String,
     config: true,
     choices: {
-      keep: "WWN.Setting.InitiativeKeep",
+      keep: "CWN.Setting.InitiativeKeep",
     }
   });
 
-  game.settings.register("wwn", "movementRate", {
-    name: game.i18n.localize("WWN.Setting.MovementRate"),
-    hint: game.i18n.localize("WWN.Setting.MovementRateHint"),
-    default: "movewwn",
+  game.settings.register("cwn", "movementRate", {
+    name: game.i18n.localize("CWN.Setting.MovementRate"),
+    hint: game.i18n.localize("CWN.Setting.MovementRateHint"),
+    default: "movecwn",
     scope: "world",
     type: String,
     config: true,
     choices: {
-      movewwn: "WWN.Setting.MoveWWN",
-      movebx: "WWN.Setting.MoveBX",
+      movecwn: "CWN.Setting.MoveCWN",
+      movebx: "CWN.Setting.MoveBX",
     },
     requiresReload: true
   });
 
-  game.settings.register("wwn", "showMovement", {
-    name: game.i18n.localize("WWN.Setting.showMovement"),
-    hint: game.i18n.localize("WWN.Setting.showMovementHint"),
+  game.settings.register("cwn", "showMovement", {
+    name: game.i18n.localize("CWN.Setting.showMovement"),
+    hint: game.i18n.localize("CWN.Setting.showMovementHint"),
     default: false,
     scope: "world",
     type: Boolean,
@@ -60,51 +60,51 @@ export const registerSettings = function () {
     requiresReload: true
   });
 
-  game.settings.register("wwn", "morale", {
-    name: game.i18n.localize("WWN.Setting.Morale"),
-    hint: game.i18n.localize("WWN.Setting.MoraleHint"),
+  game.settings.register("cwn", "morale", {
+    name: game.i18n.localize("CWN.Setting.Morale"),
+    hint: game.i18n.localize("CWN.Setting.MoraleHint"),
     default: true,
     scope: "world",
     type: Boolean,
     config: true,
   });
 
-  game.settings.register("wwn", "hideInstinct", {
-    name: game.i18n.localize("WWN.Setting.hideInstinct"),
-    hint: game.i18n.localize("WWN.Setting.hideInstinctHint"),
+  game.settings.register("cwn", "hideInstinct", {
+    name: game.i18n.localize("CWN.Setting.hideInstinct"),
+    hint: game.i18n.localize("CWN.Setting.hideInstinctHint"),
     default: false,
     scope: "world",
     type: Boolean,
     config: true
   });
 
-  game.settings.register("wwn", "languageList", {
-    name: game.i18n.localize("WWN.Languages"),
-    hint: game.i18n.localize("WWN.LanguagesHint"),
+  game.settings.register("cwn", "languageList", {
+    name: game.i18n.localize("CWN.Languages"),
+    hint: game.i18n.localize("CWN.LanguagesHint"),
     default: "Trade Cant,Ancient Vothian,Old Vothian,Modern Vothian,Ancient Olok,Brass Speech,Ancient Lin,Emedian,Ancient Osrin,Thurian,Ancient Khalan,Llaigisan,Anak Speech,Predecessant,Abased,Recurrent,Deep Speech",
     scope: "world",
     type: String,
     config: true,
   });
 
-  game.settings.register("wwn", "xpConfig", {
-    name: game.i18n.localize("WWN.Setting.xpConfig"),
-    hint: game.i18n.localize("WWN.Setting.xpConfigHint"),
+  game.settings.register("cwn", "xpConfig", {
+    name: game.i18n.localize("CWN.Setting.xpConfig"),
+    hint: game.i18n.localize("CWN.Setting.xpConfigHint"),
     default: "xpFast",
     scope: "world",
     type: String,
     config: true,
     choices: {
-      xpFast: "WWN.Setting.xpFast",
-      xpSlow: "WWN.Setting.xpSlow",
-      xpCustom: "WWN.Setting.xpCustom"
+      xpFast: "CWN.Setting.xpFast",
+      xpSlow: "CWN.Setting.xpSlow",
+      xpCustom: "CWN.Setting.xpCustom"
     },
     requiresReload: true
   });
 
-  game.settings.register("wwn", "xpCustomList", {
-    name: game.i18n.localize("WWN.Setting.xpCustomList"),
-    hint: game.i18n.localize("WWN.Setting.xpCustomListHint"),
+  game.settings.register("cwn", "xpCustomList", {
+    name: game.i18n.localize("CWN.Setting.xpCustomList"),
+    hint: game.i18n.localize("CWN.Setting.xpCustomListHint"),
     default: [
       2000,
       4000,
@@ -126,21 +126,21 @@ export const registerSettings = function () {
     requiresReload: true
   });
 
-  game.settings.register("wwn", "currencyTypes", {
-    name: game.i18n.localize("WWN.items.Currency"),
-    hint: game.i18n.localize("WWN.items.CurrencyHint"),
-    default: "currencywwn",
+  game.settings.register("cwn", "currencyTypes", {
+    name: game.i18n.localize("CWN.items.Currency"),
+    hint: game.i18n.localize("CWN.items.CurrencyHint"),
+    default: "currencycwn",
     scope: "world",
     type: String,
     config: true,
     choices: {
-      currencywwn: "WWN.Setting.CurrencyWWN",
-      currencybx: "WWN.Setting.CurrencyBX",
+      currencycwn: "CWN.Setting.CurrencyCWN",
+      currencybx: "CWN.Setting.CurrencyBX",
     },
     requiresReload: true
   });
 
-  game.settings.register("wwn", "systemMigrationVersion", {
+  game.settings.register("cwn", "systemMigrationVersion", {
     config: false,
     scope: "world",
     type: String,

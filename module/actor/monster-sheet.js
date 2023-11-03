@@ -1,11 +1,11 @@
-import { WwnActor } from "./entity.js";
-import { WwnActorSheet } from "./actor-sheet.js";
+import { CwnActor } from "./entity.js";
+import { CwnActorSheet } from "./actor-sheet.js";
 import insertionSort from "../insertionSort.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  */
-export class WwnActorSheetMonster extends WwnActorSheet {
+export class CwnActorSheetMonster extends CwnActorSheet {
   constructor(...args) {
     super(...args);
   }
@@ -18,8 +18,8 @@ export class WwnActorSheetMonster extends WwnActorSheet {
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["wwn", "sheet", "monster", "actor"],
-      template: "systems/wwn/templates/actors/monster-sheet.html",
+      classes: ["cwn", "sheet", "monster", "actor"],
+      template: "systems/cwn/templates/actors/monster-sheet.html",
       width: 730,
       height: 625,
       resizable: false,
@@ -125,7 +125,7 @@ _prepareItems(data) {
     this._prepareItems(data);
 
     // Settings
-    data.config.morale = game.settings.get("wwn", "morale");
+    data.config.morale = game.settings.get("cwn", "morale");
     if (!data.system.details.hasOwnProperty('instinctTable')) {
       data.system.details.instinctTable = {
         "table": "",
@@ -164,17 +164,17 @@ _prepareItems(data) {
   async _chooseItemType(choices = ["weapon", "armor", "shield", "item", "ability"]) {
     let templateData = { types: choices },
       dlg = await renderTemplate(
-        "systems/wwn/templates/items/entity-create.html",
+        "systems/cwn/templates/items/entity-create.html",
         templateData
       );
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
-        title: game.i18n.localize("WWN.dialog.createItem"),
+        title: game.i18n.localize("CWN.dialog.createItem"),
         content: dlg,
         buttons: {
           ok: {
-            label: game.i18n.localize("WWN.Ok"),
+            label: game.i18n.localize("CWN.Ok"),
             icon: '<i class="fas fa-check"></i>',
             callback: (html) => {
               resolve({
@@ -185,7 +185,7 @@ _prepareItems(data) {
           },
           cancel: {
             icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize("WWN.Cancel"),
+            label: game.i18n.localize("CWN.Cancel"),
           },
         },
         default: "ok",
@@ -296,7 +296,7 @@ _prepareItems(data) {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       let currentColor = item.system.pattern;
-      let colors = Object.keys(CONFIG.WWN.colors);
+      let colors = Object.keys(CONFIG.CWN.colors);
       let index = colors.indexOf(currentColor);
       if (index + 1 == colors.length) {
         index = 0;

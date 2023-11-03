@@ -1,6 +1,6 @@
-<form class="wwn roll-dialog">
+<form class="cwn roll-dialog">
     <div class="form-group">
-        <label>{{localize "WWN.dialog.skillDice"}}</label>
+        <label>{{localize "CWN.dialog.skillDice"}}</label>
         <select name="skillDice">
             {{#select dicePool}}
             <option value="2d6">2D6</option>
@@ -10,24 +10,24 @@
         </select>
     </div>
     <div class="form-group">
-        <label>{{localize "WWN.attribute"}}</label>
+        <label>{{localize "CWN.attribute"}}</label>
         <select name="score">
             {{#select defaultScore}}
-            <option value="str">{{localize 'WWN.scores.str.short'}}</option>
-            <option value="dex">{{localize 'WWN.scores.dex.short'}}</option>
-            <option value="con">{{localize 'WWN.scores.con.short'}}</option>
-            <option value="int">{{localize 'WWN.scores.int.short'}}</option>
-            <option value="wis">{{localize 'WWN.scores.wis.short'}}</option>
-            <option value="cha">{{localize 'WWN.scores.cha.short'}}</option>
+            <option value="str">{{localize 'CWN.scores.str.short'}}</option>
+            <option value="dex">{{localize 'CWN.scores.dex.short'}}</option>
+            <option value="con">{{localize 'CWN.scores.con.short'}}</option>
+            <option value="int">{{localize 'CWN.scores.int.short'}}</option>
+            <option value="wis">{{localize 'CWN.scores.wis.short'}}</option>
+            <option value="cha">{{localize 'CWN.scores.cha.short'}}</option>
             {{/select}}
         </select>
     </div>
     <div class="form-group">
-        <label>{{localize "WWN.SitMod"}}</label>
-        <input type="text" name="bonus" value="" placeholder="{{localize 'WWN.RollExample'}}" />
+        <label>{{localize "CWN.SitMod"}}</label>
+        <input type="text" name="bonus" value="" placeholder="{{localize 'CWN.RollExample'}}" />
     </div>
     <div class="form-group">
-        <label>{{localize "WWN.RollMode"}}</label>
+        <label>{{localize "CWN.RollMode"}}</label>
         <select name="rollMode">
             {{#select rollMode}}
             {{#each rollModes as |label mode|}}

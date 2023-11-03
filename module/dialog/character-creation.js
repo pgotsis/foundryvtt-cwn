@@ -1,13 +1,13 @@
-import { WwnActor } from '../actor/entity.js';
-import { WwnDice } from "../dice.js";
+import { CwnActor } from '../actor/entity.js';
+import { CwnDice } from "../dice.js";
 
-export class WwnCharacterCreator extends FormApplication {
+export class CwnCharacterCreator extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.classes = ["wwn", "dialog", "creator"],
+    options.classes = ["cwn", "dialog", "creator"],
       options.id = 'character-creator';
     options.template =
-      'systems/wwn/templates/actors/dialogs/character-creation.html';
+      'systems/cwn/templates/actors/dialogs/character-creation.html';
     options.width = 235;
     return options;
   }
@@ -19,7 +19,7 @@ export class WwnCharacterCreator extends FormApplication {
    * @type {String}
    */
   get title() {
-    return `${this.object.name}: ${game.i18n.localize('WWN.dialog.generator')}`;
+    return `${this.object.name}: ${game.i18n.localize('CWN.dialog.generator')}`;
   }
 
   /* -------------------------------------------- */
@@ -31,7 +31,7 @@ export class WwnCharacterCreator extends FormApplication {
   getData() {
     let data = foundry.utils.deepClone(this.object);
     data.user = game.user;
-    data.config = CONFIG.WWN;
+    data.config = CONFIG.CWN;
     this.counters = {
       str: 0,
       wis: 0,
@@ -85,7 +85,7 @@ export class WwnCharacterCreator extends FormApplication {
     // Increase counter
     this.counters[score]++;
 
-    const label = score != "silver" ? game.i18n.localize(`WWN.scores.${score}.long`) : "Silver";
+    const label = score != "silver" ? game.i18n.localize(`CWN.scores.${score}.long`) : "Silver";
     const rollParts = ["3d6"];
     const data = {
       roll: {
@@ -93,14 +93,14 @@ export class WwnCharacterCreator extends FormApplication {
       }
     };
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format('WWN.dialog.generateScore', { score: label, count: this.counters[score] }),
-      title: game.i18n.format('WWN.dialog.generateScore', { score: label, count: this.counters[score] }),
+      flavor: game.i18n.format('CWN.dialog.generateScore', { score: label, count: this.counters[score] }),
+      title: game.i18n.format('CWN.dialog.generateScore', { score: label, count: this.counters[score] }),
     });
   }
 
@@ -115,13 +115,13 @@ export class WwnCharacterCreator extends FormApplication {
     const silver = $(this.form.children).find('.silver-value').val();
     const speaker = ChatMessage.getSpeaker({ actor: this });
     const templateData = {
-      config: CONFIG.WWN,
+      config: CONFIG.CWN,
       scores: scores,
-      title: game.i18n.localize("WWN.dialog.generator"),
+      title: game.i18n.localize("CWN.dialog.generator"),
       stats: this.object.stats,
       silver: silver
     }
-    const content = await renderTemplate("systems/wwn/templates/chat/roll-creation.html", templateData)
+    const content = await renderTemplate("systems/cwn/templates/chat/roll-creation.html", templateData)
     ChatMessage.create({
       content: content,
       speaker,

@@ -1,5 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
+        <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
         <div class="header-col">
             <h1 class="charname">
                 <input name="name" type="text" value="{{name}}" placeholder="Name" />
@@ -10,14 +11,14 @@
         <div class="flexrow">
             <div class="skill-details">
                 <div class="form-group">
-                    <label><b>{{localize 'WWN.details.level'}}</b></label>
+                    <label><b>{{localize 'CWN.details.level'}}</b></label>
                     <div class="form-fields">
                         <input type="number" name="system.ownedLevel" value="{{system.ownedLevel}}"
                             data-dtype="Number" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><b>{{localize 'WWN.attribute'}}</b></label>
+                    <label><b>{{localize 'CWN.attribute'}}</b></label>
                     <div class="form-fields">
                         <select name="system.score">
                             {{#select system.score}} {{#each config.scores as
@@ -28,7 +29,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><b>{{localize 'WWN.dialog.skillDice'}}</b></label>
+                    <label><b>{{localize 'CWN.dialog.skillDice'}}</b></label>
                     <div class="form-fields">
                         <select id="skillDice" name="system.skillDice">
                             {{#select system.skillDice}}
@@ -40,7 +41,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><b>{{localize 'WWN.skills.secondary'}}</b></label>
+                    <label><b>{{localize 'CWN.skills.secondary'}}</b></label>
                     <div class="form-fields">
                         <input type="checkbox" name="system.secondary" value="{{system.secondary}}" {{checked
                             system.secondary}} data-dtype="Boolean" />

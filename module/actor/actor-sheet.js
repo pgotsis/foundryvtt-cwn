@@ -1,7 +1,7 @@
-import { WwnActor } from "./entity.js";
-import { WwnEntityTweaks } from "../dialog/entity-tweaks.js";
+import { CwnActor } from "./entity.js";
+import { CwnEntityTweaks } from "../dialog/entity-tweaks.js";
 
-export class WwnActorSheet extends ActorSheet {
+export class CwnActorSheet extends ActorSheet {
   constructor(...args) {
     super(...args);
   }
@@ -12,7 +12,7 @@ export class WwnActorSheet extends ActorSheet {
     data.owner = this.actor.isOwner;
     data.editable = this.actor.sheet.isEditable;
 
-    data.config = CONFIG.WWN;
+    data.config = CONFIG.CWN;
     data.isNew = this.actor.isNew();
 
     return data;
@@ -117,7 +117,7 @@ export class WwnActorSheet extends ActorSheet {
     });
     html.find(".add-skills").click(async () => {
       // Add primary skills from compendium
-      let skillPack = game.packs.get("wwn.skills");
+      let skillPack = game.packs.get("cwn.skills");
       let toAdd = await skillPack.getDocuments();
       let primarySkills = toAdd
         .filter((i) => i.system.secondary == false)
@@ -337,7 +337,7 @@ export class WwnActorSheet extends ActorSheet {
 
   _onConfigureActor(event) {
     event.preventDefault();
-    new WwnEntityTweaks(this.actor, {
+    new CwnEntityTweaks(this.actor, {
       top: this.position.top + 40,
       left: this.position.left + (this.position.width - 400) / 2,
     }).render(true);
@@ -355,7 +355,7 @@ export class WwnActorSheet extends ActorSheet {
     if (this.options.editable && canConfigure) {
       buttons = [
         {
-          label: game.i18n.localize("WWN.dialog.tweaks"),
+          label: game.i18n.localize("CWN.dialog.tweaks"),
           class: "configure-actor",
           icon: "fas fa-code",
           onclick: (ev) => this._onConfigureActor(ev),

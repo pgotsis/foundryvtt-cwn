@@ -1,20 +1,24 @@
-import { WwnItem } from "./entity.js";
-import { WwnAsset } from "./asset.js";
+import { CwnItem } from "./entity.js";
+import { CwnAsset } from "./asset.js";
 
 //Provide a type string to class object mapping to keep our code clean
 const itemMappings = {
-  asset: WwnAsset,
-  spell: WwnItem,
-  ability: WwnItem,
-  armor: WwnItem,
-  weapon: WwnItem,
-  item: WwnItem,
-  focus: WwnItem,
-  art: WwnItem,
-  skill: WwnItem,
+  asset: CwnAsset,
+  spell: CwnItem,
+  ability: CwnItem,
+  armor: CwnItem,
+  weapon: CwnItem,
+  cyberware: CwnItem,
+  item: CwnItem,
+  focus: CwnItem,
+  art: CwnItem,
+  skill: CwnItem,
+  cyberdeck: CwnItem,
+  subject: CwnItem,
+  verb: CwnItem
 };
 
-export const WwnItemProxy = new Proxy(function () {}, {
+export const CwnItemProxy = new Proxy(function () {}, {
   //Will intercept calls to the "new" operator
   construct: function (target, args) {
     const [data] = args;
@@ -35,7 +39,7 @@ export const WwnItemProxy = new Proxy(function () {}, {
         return function (data, options) {
           if (data.constructor === Array) {
             //Array of data, this happens when creating Actors imported from a compendium
-            return data.map(i => WwnItem.create(i, options));
+            return data.map(i => CwnItem.create(i, options));
           }
 
           if (!itemMappings.hasOwnProperty(data.type))
@@ -52,7 +56,7 @@ export const WwnItemProxy = new Proxy(function () {}, {
 
       default:
         //Just forward any requested properties to the base Actor class
-        return WwnItem[prop];
+        return CwnItem[prop];
     }
   },
 });

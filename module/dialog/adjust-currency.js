@@ -1,10 +1,10 @@
-export class WwnAdjustCurrency extends FormApplication {
+export class CwnAdjustCurrency extends FormApplication {
 
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = 'sheet-tweaks';
     options.template =
-      'systems/wwn/templates/actors/dialogs/adjust-currency.html';
+      'systems/cwn/templates/actors/dialogs/adjust-currency.html';
     options.width = 280;
     return options;
   }
@@ -15,7 +15,7 @@ export class WwnAdjustCurrency extends FormApplication {
    * @type {String}
    */
   get title() {
-    return game.i18n.localize("WWN.items.adjustCurrency");
+    return game.i18n.localize("CWN.items.adjustCurrency");
   }
   /* -------------------------------------------- */
 
@@ -29,7 +29,7 @@ export class WwnAdjustCurrency extends FormApplication {
       data.isCharacter = true;
     }
     data.user = game.user;
-    data.config = CONFIG.WWN;
+    data.config = CONFIG.CWN;
     return data;
   }
   /* -------------------------------------------- */
@@ -40,7 +40,7 @@ export class WwnAdjustCurrency extends FormApplication {
     updatedCurrency.sp = parseInt($(ev.currentTarget.parentElement.parentElement).find('input[name="silver"]').val()) || 0;
     updatedCurrency.gp = parseInt($(ev.currentTarget.parentElement.parentElement).find('input[name="gold"]').val()) || 0;
     updatedCurrency.bank = parseInt($(ev.currentTarget.parentElement.parentElement).find('input[name="bank"]').val()) || 0;
-    if (game.settings.get("wwn", "currencyTypes") === "currencybx") {
+    if (game.settings.get("cwn", "currencyTypes") === "currencybx") {
       updatedCurrency.ep = parseInt($(ev.currentTarget.parentElement.parentElement).find('input[name="electrum"]').val()) || 0;
       updatedCurrency.pp = parseInt($(ev.currentTarget.parentElement.parentElement).find('input[name="platinum"]').val()) || 0;
     }

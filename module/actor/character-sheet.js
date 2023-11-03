@@ -1,13 +1,13 @@
-import { WwnActorSheet } from "./actor-sheet.js";
-import { WwnCharacterModifiers } from "../dialog/character-modifiers.js";
-import { WwnAdjustCurrency } from "../dialog/adjust-currency.js";
-import { WwnCharacterCreator } from "../dialog/character-creation.js";
+import { CwnActorSheet } from "./actor-sheet.js";
+import { CwnCharacterModifiers } from "../dialog/character-modifiers.js";
+import { CwnAdjustCurrency } from "../dialog/adjust-currency.js";
+import { CwnCharacterCreator } from "../dialog/character-creation.js";
 import insertionSort from "../insertionSort.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
  */
-export class WwnActorSheetCharacter extends WwnActorSheet {
+export class CwnActorSheetCharacter extends CwnActorSheet {
   constructor(...args) {
     super(...args);
   }
@@ -20,8 +20,8 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["wwn", "sheet", "actor", "character"],
-      template: "systems/wwn/templates/actors/character-sheet.html",
+      classes: ["cwn", "sheet", "actor", "character"],
+      template: "systems/cwn/templates/actors/character-sheet.html",
       width: 755,
       height: 625,
       resizable: false,
@@ -41,7 +41,7 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
    */
   _prepareItems(data) {
     // Partition items by category
-    let [items, weapons, armors, abilities, spells, arts, foci, skills] =
+    let [items, weapons, armors, abilities, spells, arts, foci, skills, cyberwares, cyberdecks, subjects, verbs] =
       this.actor.items.reduce(
         (arr, item) => {
           // Classify items into types
@@ -53,9 +53,13 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
           else if (item.type === "art") arr[5].push(item);
           else if (item.type === "focus") arr[6].push(item);
           else if (item.type === "skill") arr[7].push(item);
+          else if (item.type === "cyberware") arr[8].push(item);
+          else if (item.type === "cyberdeck") arr[9].push(item);
+          else if (item.type === "subject") arr[10].push(item);
+          else if (item.type === "verb") arr[11].push(item);
           return arr;
         },
-        [[], [], [], [], [], [], [], []]
+        [[], [], [], [], [], [], [], [], [], [], [], []]
       );
 
     // Sort spells by level
@@ -113,6 +117,10 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
       arts: sortedArts,
       foci: insertionSort(foci, "name"),
       skills: [...primarySkills, ...secondarySkills],
+      cyberwares: insertionSort(cyberwares, "name"),
+      cyberdecks: insertionSort(cyberdecks, "name"),
+      subjects: insertionSort(subjects, "name"),
+      verbs: insertionSort(verbs, "name"),
       spells: sortedSpells
     };
 
@@ -121,14 +129,14 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
   }
 
   generateScores() {
-    new WwnCharacterCreator(this.actor, {
+    new CwnCharacterCreator(this.actor, {
       top: this.position.top + 40,
       left: this.position.left + (this.position.width - 400) / 2,
     }).render(true);
   }
 
   adjustCurrency() {
-    new WwnAdjustCurrency(this.actor, {
+    new CwnAdjustCurrency(this.actor, {
       top: this.position.top + 300,
       left: this.position.left + (this.position.width - 200) / 2,
     }).render(true);
@@ -141,9 +149,9 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
   async getData() {
     const data = super.getData();
 
-    data.config.initiative = game.settings.get("wwn", "initiative") != "group";
-    data.config.showMovement = game.settings.get("wwn", "showMovement");
-    data.config.currencyTypes = game.settings.get("wwn", "currencyTypes");
+    data.config.initiative = game.settings.get("cwn", "initiative") != "group";
+    data.config.showMovement = game.settings.get("cwn", "showMovement");
+    data.config.currencyTypes = game.settings.get("cwn", "currencyTypes");
 
     this._prepareItems(data);
     data.enrichedBiography = await TextEditor.enrichHTML(
@@ -158,12 +166,12 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
   }
 
   async _chooseLang() {
-    const languages = game.settings.get("wwn", "languageList");
+    const languages = game.settings.get("cwn", "languageList");
     const choices = languages.split(",");
 
     let templateData = { choices: choices },
       dlg = await renderTemplate(
-        "systems/wwn/templates/actors/dialogs/lang-create.html",
+        "systems/cwn/templates/actors/dialogs/lang-create.html",
         templateData
       );
     //Create Dialog window
@@ -173,7 +181,7 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
         content: dlg,
         buttons: {
           ok: {
-            label: game.i18n.localize("WWN.Ok"),
+            label: game.i18n.localize("CWN.Ok"),
             icon: '<i class="fas fa-check"></i>',
             callback: (html) => {
               resolve({
@@ -183,7 +191,7 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
           },
           cancel: {
             icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize("WWN.Cancel"),
+            label: game.i18n.localize("CWN.Cancel"),
           },
         },
         default: "ok",
@@ -194,17 +202,17 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
   async _chooseItemType(choices = ["focus", "ability"]) {
     let templateData = { types: choices },
       dlg = await renderTemplate(
-        "systems/wwn/templates/items/entity-create.html",
+        "systems/cwn/templates/items/entity-create.html",
         templateData
       );
     //Create Dialog window
     return new Promise((resolve) => {
       new Dialog({
-        title: game.i18n.localize("WWN.dialog.createItem"),
+        title: game.i18n.localize("CWN.dialog.createItem"),
         content: dlg,
         buttons: {
           ok: {
-            label: game.i18n.localize("WWN.Ok"),
+            label: game.i18n.localize("CWN.Ok"),
             icon: '<i class="fas fa-check"></i>',
             callback: (html) => {
               resolve({
@@ -215,7 +223,7 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
           },
           cancel: {
             icon: '<i class="fas fa-times"></i>',
-            label: game.i18n.localize("WWN.Cancel"),
+            label: game.i18n.localize("CWN.Cancel"),
           },
         },
         default: "ok",
@@ -226,7 +234,7 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
   _pushLang(table) {
     const data = this.actor.system;
     let update = duplicate(data[table]);
-    let language = game.settings.get("wwn", "languageList");
+    let language = game.settings.get("cwn", "languageList");
     let languages = language.split(",");
     this._chooseLang().then((dialogInput) => {
       const name = languages[dialogInput.choice];
@@ -269,7 +277,7 @@ export class WwnActorSheetCharacter extends WwnActorSheet {
 
   _onShowModifiers(event) {
     event.preventDefault();
-    new WwnCharacterModifiers(this.actor, {
+    new CwnCharacterModifiers(this.actor, {
       top: this.position.top + 40,
       left: this.position.left + (this.position.width - 400) / 2,
     }).render(true);

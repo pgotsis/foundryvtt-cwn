@@ -1,7 +1,7 @@
-import { WwnDice } from "../dice.js";
-import { WwnItem } from "../item/entity.js";
+import { CwnDice } from "../dice.js";
+import { CwnItem } from "../item/entity.js";
 
-export class WwnActor extends Actor {
+export class CwnActor extends Actor {
   /**
    * Extends data from base Actor class
    */
@@ -14,12 +14,9 @@ export class WwnActor extends Actor {
     this.computeAC();
     this.computeEncumbrance();
     this._calculateMovement();
-    this.computeResources();
-    this.computeTreasure();
     this.enableSpellcasting();
     this.computeEffort();
     this.computeSaves();
-    this.computeTotalSP();
     this.setXP();
     this.computePrepared();
     this.computeInit();
@@ -29,7 +26,7 @@ export class WwnActor extends Actor {
     if (!game.user.isGM && !this.isOwner) return;
     data.map((item) => {
       if (item.img === undefined) {
-        item.img = WwnItem.defaultIcons[item.type];
+        item.img = CwnItem.defaultIcons[item.type];
       }
     });
     super.createEmbeddedDocuments(embeddedName, data, context);
@@ -50,7 +47,7 @@ export class WwnActor extends Actor {
     }).then(() => {
       const speaker = ChatMessage.getSpeaker({ actor: this });
       ChatMessage.create({
-        content: game.i18n.format("WWN.messages.GetExperience", {
+        content: game.i18n.format("CWN.messages.GetExperience", {
           name: this.name,
           value: modified,
         }),
@@ -85,7 +82,7 @@ export class WwnActor extends Actor {
     }).then(() => {
       const speaker = ChatMessage.getSpeaker({ actor: this });
       ChatMessage.create({
-        content: game.i18n.format("WWN.messages.GetCurrency", {
+        content: game.i18n.format("CWN.messages.GetCurrency", {
           name: this.name,
           value,
         }),
@@ -111,7 +108,7 @@ export class WwnActor extends Actor {
   }
 
   rollSave(save, options = {}) {
-    const label = game.i18n.localize(`WWN.saves.${save}`);
+    const label = game.i18n.localize(`CWN.saves.${save}`);
     const rollParts = ["1d20"];
 
     const data = {
@@ -121,13 +118,13 @@ export class WwnActor extends Actor {
         target: this.system.saves[save].value,
         magic: this.type === "character" ? this.system.scores.wis.mod : 0,
       },
-      details: game.i18n.format("WWN.roll.details.save", { save: label }),
+      details: game.i18n.format("CWN.roll.details.save", { save: label }),
     };
 
     let skip = options.event && options.event.ctrlKey;
 
     const rollMethod =
-      this.type == "character" ? WwnDice.RollSave : WwnDice.Roll;
+      this.type == "character" ? CwnDice.RollSave : CwnDice.Roll;
 
     // Roll and return
     return rollMethod({
@@ -136,8 +133,8 @@ export class WwnActor extends Actor {
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("WWN.roll.save", { save: label }),
-      title: game.i18n.format("WWN.roll.save", {
+      flavor: game.i18n.format("CWN.roll.save", { save: label }),
+      title: game.i18n.format("CWN.roll.save", {
         save: this.name + " - " + label,
       }),
     });
@@ -155,14 +152,14 @@ export class WwnActor extends Actor {
     };
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
       skipDialog: false,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.localize("WWN.roll.morale"),
-      title: game.i18n.localize("WWN.roll.morale"),
+      flavor: game.i18n.localize("CWN.roll.morale"),
+      title: game.i18n.localize("CWN.roll.morale"),
     });
   }
 
@@ -178,19 +175,19 @@ export class WwnActor extends Actor {
     };
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
       skipDialog: false,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.localize("WWN.roll.instinct"),
-      title: game.i18n.localize("WWN.roll.instinct"),
+      flavor: game.i18n.localize("CWN.roll.instinct"),
+      title: game.i18n.localize("CWN.roll.instinct"),
     });
   }
 
   rollLoyalty(options = {}) {
-    const label = game.i18n.localize(`WWN.roll.loyalty`);
+    const label = game.i18n.localize(`CWN.roll.loyalty`);
     const rollParts = ["2d6"];
 
     const data = {
@@ -202,7 +199,7 @@ export class WwnActor extends Actor {
     };
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
@@ -221,19 +218,19 @@ export class WwnActor extends Actor {
       roll: {
         type: "table",
         table: {
-          2: game.i18n.format("WWN.reaction.Hostile", {
+          2: game.i18n.format("CWN.reaction.Hostile", {
             name: this.name,
           }),
-          3: game.i18n.format("WWN.reaction.Unfriendly", {
+          3: game.i18n.format("CWN.reaction.Unfriendly", {
             name: this.name,
           }),
-          6: game.i18n.format("WWN.reaction.Neutral", {
+          6: game.i18n.format("CWN.reaction.Neutral", {
             name: this.name,
           }),
-          9: game.i18n.format("WWN.reaction.Indifferent", {
+          9: game.i18n.format("CWN.reaction.Indifferent", {
             name: this.name,
           }),
-          12: game.i18n.format("WWN.reaction.Friendly", {
+          12: game.i18n.format("CWN.reaction.Friendly", {
             name: this.name,
           }),
         },
@@ -243,19 +240,19 @@ export class WwnActor extends Actor {
     let skip = options.event && options.event.ctrlKey;
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.localize("WWN.reaction.check"),
-      title: game.i18n.localize("WWN.reaction.check"),
+      flavor: game.i18n.localize("CWN.reaction.check"),
+      title: game.i18n.localize("CWN.reaction.check"),
     });
   }
 
   rollCheck(score, options = {}) {
-    const label = game.i18n.localize(`WWN.scores.${score}.long`);
+    const label = game.i18n.localize(`CWN.scores.${score}.long`);
     const rollParts = ["1d20"];
 
     const data = {
@@ -265,7 +262,7 @@ export class WwnActor extends Actor {
         target: this.system.scores[score].value,
       },
 
-      details: game.i18n.format("WWN.roll.details.attribute", {
+      details: game.i18n.format("CWN.roll.details.attribute", {
         score: label,
       }),
     };
@@ -273,19 +270,19 @@ export class WwnActor extends Actor {
     let skip = options.event && options.event.ctrlKey;
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("WWN.roll.attribute", { attribute: label }),
-      title: game.i18n.format("WWN.roll.attribute", { attribute: label }),
+      flavor: game.i18n.format("CWN.roll.attribute", { attribute: label }),
+      title: game.i18n.format("CWN.roll.attribute", { attribute: label }),
     });
   }
 
   rollHitDice(options = {}) {
-    const label = game.i18n.localize(`WWN.roll.hd`);
+    const label = game.i18n.localize(`CWN.roll.hd`);
     const rollParts = new Array(this.system.details.level || 1).fill(
       this.system.hp.hd
     );
@@ -303,7 +300,7 @@ export class WwnActor extends Actor {
     };
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
@@ -334,19 +331,19 @@ export class WwnActor extends Actor {
     };
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("WWN.roll.appearing", { type: label }),
-      title: game.i18n.format("WWN.roll.appearing", { type: label }),
+      flavor: game.i18n.format("CWN.roll.appearing", { type: label }),
+      title: game.i18n.format("CWN.roll.appearing", { type: label }),
     });
   }
 
   rollMonsterSkill(options = {}) {
-    const label = game.i18n.localize(`WWN.skill`);
+    const label = game.i18n.localize(`CWN.skill`);
     const rollParts = ["2d6"];
 
     const data = {
@@ -356,7 +353,7 @@ export class WwnActor extends Actor {
         target: this.system.details.skill,
       },
 
-      details: game.i18n.format("WWN.roll.details.attribute", {
+      details: game.i18n.format("CWN.roll.details.attribute", {
         score: label,
       }),
     };
@@ -365,14 +362,14 @@ export class WwnActor extends Actor {
     let skip = options.event && options.event.ctrlKey;
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: data,
       skipDialog: skip,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("WWN.roll.attribute", { attribute: label }),
-      title: game.i18n.format("WWN.roll.attribute", { attribute: label }),
+      flavor: game.i18n.format("CWN.roll.attribute", { attribute: label }),
+      title: game.i18n.format("CWN.roll.attribute", { attribute: label }),
     });
   }
 
@@ -400,14 +397,14 @@ export class WwnActor extends Actor {
     }
 
     // Damage roll
-    WwnDice.Roll({
+    CwnDice.Roll({
       event: options.event,
       parts: dmgParts,
       data: rollData,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${attData.label} - ${game.i18n.localize("WWN.Damage")}`,
-      title: `${attData.label} - ${game.i18n.localize("WWN.Damage")}`,
+      flavor: `${attData.label} - ${game.i18n.localize("CWN.Damage")}`,
+      title: `${attData.label} - ${game.i18n.localize("CWN.Damage")}`,
     });
   }
 
@@ -432,6 +429,7 @@ export class WwnActor extends Actor {
     const rollLabels = [];
     const dmgLabels = [];
     const weaponShock = attData.item.system.shock.damage;
+    //const weaponTrauma = attData.item.system.trauma;
     let statAttack, skillAttack, statValue, skillValue;
     if (data.character) {
       statAttack = attData.item.system.score;
@@ -444,7 +442,7 @@ export class WwnActor extends Actor {
     }
 
     let readyState = "";
-    let label = game.i18n.format("WWN.roll.attacks", {
+    let label = game.i18n.format("CWN.roll.attacks", {
       name: this.name,
     });
     if (!attData.item) {
@@ -452,14 +450,14 @@ export class WwnActor extends Actor {
     } else {
       if (data.character) {
         if (attData.item.system.equipped) {
-          readyState = game.i18n.format("WWN.roll.readied");
+          readyState = game.i18n.format("CWN.roll.readied");
         } else if (attData.item.system.stowed) {
-          readyState = game.i18n.format("WWN.roll.stowed");
+          readyState = game.i18n.format("CWN.roll.stowed");
         } else {
-          readyState = game.i18n.format("WWN.roll.notCarried");
+          readyState = game.i18n.format("CWN.roll.notCarried");
         }
       }
-      label = game.i18n.format("WWN.roll.attacksWith", {
+      label = game.i18n.format("CWN.roll.attacksWith", {
         name: attData.item.name,
         readyState: readyState,
       });
@@ -549,7 +547,7 @@ export class WwnActor extends Actor {
     };
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: rollData,
@@ -587,7 +585,7 @@ export class WwnActor extends Actor {
 
   computeInit() {
     let initValue = 0;
-    if (game.settings.get("wwn", "initiative") != "group") {
+    if (game.settings.get("cwn", "initiative") != "group") {
       if (this.type == "character") {
         initValue = this.system.scores.dex.mod + this.system.initiative.mod;
       } else {
@@ -606,7 +604,7 @@ export class WwnActor extends Actor {
     let level = data.details.level - 1;
 
     // Retrieve XP Settings
-    switch (game.settings.get("wwn", "xpConfig")) {
+    switch (game.settings.get("cwn", "xpConfig")) {
       case "xpSlow":
         xpRate = [6, 15, 24, 36, 51, 69, 87, 105, 139];
         break;
@@ -614,7 +612,7 @@ export class WwnActor extends Actor {
         xpRate = [3, 6, 12, 18, 27, 39, 54, 72, 93];
         break;
       case "xpCustom":
-        xpRate = game.settings.get("wwn", "xpCustomList").split(",");
+        xpRate = game.settings.get("cwn", "xpCustomList").split(",");
         break;
     }
 
@@ -649,6 +647,7 @@ export class WwnActor extends Actor {
     const weapons = this.items.filter((w) => w.type == "weapon");
     const armors = this.items.filter((a) => a.type == "armor");
     const items = this.items.filter((i) => i.type == "item");
+    const cyberdecks = this.items.filter((c) => c.type == "cyberdeck");
 
     weapons.forEach((w) => {
       if (
@@ -662,6 +661,18 @@ export class WwnActor extends Actor {
         totalStowed += Math.ceil(w.system.weight * w.system.quantity);
       }
     });
+    cyberdecks.forEach((c) => {
+      if (
+        (c.system.weightless === "whenReadied" && c.system.equipped) ||
+        (c.system.weightless === "whenStowed" && c.system.stowed)
+      )
+        return;
+      if (c.system.equipped) {
+        totalReadied += Math.ceil(c.system.weight * c.system.quantity);
+      } else if (w.system.stowed) {
+        totalStowed += Math.ceil(c.system.weight * c.system.quantity);
+      }
+    })
     armors.forEach((a) => {
       if (
         (a.system.weightless === "whenReadied" && a.system.equipped) ||
@@ -702,7 +713,7 @@ export class WwnActor extends Actor {
       }
     });
 
-    if (game.settings.get("wwn", "currencyTypes") == "currencybx") {
+    if (game.settings.get("cwn", "currencyTypes") == "currencybx") {
       const coinWeight =
         (data.currency.cp +
           data.currency.sp +
@@ -737,7 +748,7 @@ export class WwnActor extends Actor {
       const bonus = data.movement.bonus;
 
       let systemBase = [];
-      game.settings.get("wwn", "movementRate") == "movebx"
+      game.settings.get("cwn", "movementRate") == "movebx"
         ? (systemBase = [40, 30, 20])
         : (systemBase = [30, 20, 15]);
 
@@ -768,39 +779,6 @@ export class WwnActor extends Actor {
     }
   }
 
-  // Calculate Resources
-  computeResources() {
-    if (this.type != "character") return;
-    let totalOil = 0;
-    let totalTorches = 0;
-    let totalRations = 0;
-
-    // Collect resource arrays
-    const oilArray = this.items.filter(
-      (i) =>
-        i.name.toLowerCase() === "oil, one pint" ||
-        i.name.toLowerCase() === "oil"
-    );
-    const torchArray = this.items.filter(
-      (i) => i.name.toLowerCase() === "torch"
-    );
-    const rationsArray = this.items.filter((i) =>
-      i.name.toLowerCase().includes("rations")
-    );
-
-    // Calculate resource totals
-    oilArray.forEach((i) => (totalOil += i.system.charges.value));
-    torchArray.forEach((i) => (totalTorches += i.system.charges.value));
-    rationsArray.forEach((i) => (totalRations += i.system.charges.value));
-
-    // Update resources
-    this.system.details.resources = {
-      oil: totalOil,
-      torches: totalTorches,
-      rations: totalRations,
-    };
-  }
-
   // Enable spell sheet and relevant sections
   enableSpellcasting() {
     if (this.type === "faction") return;
@@ -817,19 +795,12 @@ export class WwnActor extends Actor {
       : this.system.spells.spellsEnabled = false;
   }
 
-  // Compute Total Wealth
-  computeTotalSP() {
-    const data = this.system;
-    if (this.type != "character") return;
-    let newTotal =
-      data.currency.cp * 0.1 +
-      data.currency.sp +
-      data.currency.gp * 10 +
-      data.currency.pp * 100 +
-      data.currency.ep * 5 +
-      data.currency.bank +
-      data.treasure;
-    this.system.currency.total = newTotal;
+  enableCyberdeck(){
+    if (this.type === "faction") return;
+    const cyberdeck = this.items.filter(i => i.type === "cyberdeck");
+    cyberdeck.length > 0
+      ? this.system.cyberdecks.enabled = true
+      : this.system.cyberdecks.enabled = false
   }
 
   // Compute Effort
@@ -854,22 +825,6 @@ export class WwnActor extends Actor {
     });
 
     this.system.classes = classPools;
-  }
-
-  computeTreasure() {
-    if (this.type != "character") {
-      return;
-    }
-    const data = this.system;
-    // Compute treasure
-    let total = 0;
-    const treasures = this.items.filter(
-      (i) => i.type == "item" && i.system.treasure
-    );
-    treasures.forEach((item) => {
-      total += item.system.quantity * item.system.price;
-    });
-    this.system.treasure = total;
   }
 
   computeAC() {
@@ -958,7 +913,7 @@ export class WwnActor extends Actor {
     Object.keys(scores).map((score) => {
       let newMod =
         this.system.scores[score].tweak +
-        WwnActor._valueFromTable(standard, scores[score].value);
+        CwnActor._valueFromTable(standard, scores[score].value);
       this.system.scores[score].mod = newMod;
     });
 
@@ -1061,23 +1016,22 @@ export class WwnActor extends Actor {
     const skillList = [
       "administer",
       "connect",
-      "convince",
-      "craft",
+      "drive",
       "exert",
+      "fix",
       "heal",
       "know",
       "lead",
       "magic",
       "notice",
       "perform",
-      "pray",
+      "program",
       "punch",
-      "ride",
-      "sail",
       "shoot",
       "sneak",
       "stab",
       "survive",
+      "talk",
       "trade",
       "work",
       "biopsionics",
@@ -1088,9 +1042,9 @@ export class WwnActor extends Actor {
       "teleportation",
     ];
     const skills = skillList.map((el) => {
-      const skillKey = `WWN.skills.${el}`;
-      const skillDesc = `WWN.skills.desc.${el}`;
-      const imagePath = `/systems/wwn/assets/skills/${el}.png`;
+      const skillKey = `CWN.skills.${el}`;
+      const skillDesc = `CWN.skills.desc.${el}`;
+      const imagePath = `/systems/cwn/assets/skills/${el}.png`;
       return {
         type: "skill",
         name: game.i18n.localize(skillKey),

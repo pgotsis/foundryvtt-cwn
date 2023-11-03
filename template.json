@@ -250,6 +250,10 @@
       "focus",
       "item",
       "spell",
+      "cyberware",
+      "cyberdeck",
+      "subject",
+      "verb",
       "weapon",
       "asset",
       "skill"
@@ -292,6 +296,7 @@
       "slow": false,
       "missile": false,
       "melee": true,
+      "traumaDice":"1d6",
       "price": 0,
       "weight": 0,
       "counter": {
@@ -315,6 +320,35 @@
       "type": "light",
       "price": 0,
       "weight": 0
+    },
+    "cyberware":{
+      "description": "",
+      "cyberType":"",
+      "concealment":"",
+      "systemStrain":"",
+      "price":0
+    },
+    "cyberdeck":{
+      "description":"",
+      "bonusAccess":0,
+      "memory":0,
+      "shielding":0,
+      "cpu":0,
+      "weight":0,
+      "price":0
+    },
+    "subject":{
+      "price":0,
+      "subjectType":"",
+      "mounted":false
+    },
+    "verb":{
+      "use":"",
+      "price":0,
+      "target":"",
+      "accessCost":0,
+      "skillCheckMod":0,
+      "mounted":false
     },
     "spell": {
       "lvl": 1,

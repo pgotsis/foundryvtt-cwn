@@ -1,19 +1,23 @@
-import { WwnDice } from "../dice.js";
+import { CwnDice } from "../dice.js";
 
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-export class WwnItem extends Item {
+export class CwnItem extends Item {
   // Replacing default image
   static get defaultIcons() {
     return {
-      spell: "/systems/wwn/assets/default/spell.png",
-      ability: "/systems/wwn/assets/default/ability.png",
-      armor: "/systems/wwn/assets/default/armor.png",
-      weapon: "/systems/wwn/assets/default/weapon.png",
-      item: "/systems/wwn/assets/default/item.png",
-      focus: "/systems/wwn/assets/default/focus.png",
-      art: "/systems/wwn/assets/default/art.png",
+      spell: "/systems/cwn/assets/default/spell.png",
+      ability: "/systems/cwn/assets/default/ability.png",
+      armor: "/systems/cwn/assets/default/armor.png",
+      weapon: "/systems/cwn/assets/default/weapon.png",
+      cyberware: "systems/cwn/assets/default/cyberware.png",
+      item: "/systems/cwn/assets/default/item.png",
+      focus: "/systems/cwn/assets/default/focus.png",
+      art: "/systems/cwn/assets/default/art.png",
+      cyberdeck: "systems/cwn/assets/default/cyberdeck.png",
+      verb: "systems/cwn/assets/default/program.png",
+      subject: "systems/cwn/assets/default/program.png"
     };
   }
 
@@ -91,7 +95,7 @@ export class WwnItem extends Item {
   }
 
   async rollSkill(options = {}) {
-    const template = "systems/wwn/templates/items/dialogs/roll-skill.html";
+    const template = "systems/cwn/templates/items/dialogs/roll-skill.html";
     const dialogData = {
       defaultScore: this.system.score,
       dicePool: this.system.skillDice,
@@ -138,7 +142,7 @@ export class WwnItem extends Item {
     }
 
     if (options.skipDialog) {
-      const attrKey = `WWN.scores.${data.score}.short`;
+      const attrKey = `CWN.scores.${data.score}.short`;
       const rollTitle = `${game.i18n.localize(attrKey)}/${this.name}`;
 
       let rollData = {
@@ -150,11 +154,11 @@ export class WwnItem extends Item {
         form: null,
         rollTitle: rollTitle,
       };
-      return WwnDice.sendRoll(rollData);
+      return CwnDice.sendRoll(rollData);
     }
 
     const html = await renderTemplate(template, dialogData);
-    const title = `${game.i18n.localize("WWN.Roll")} ${this.name}`;
+    const title = `${game.i18n.localize("CWN.Roll")} ${this.name}`;
     const _doRoll = async (html) => {
       const form = html[0].querySelector("form");
       rollParts[0] = form.skillDice.value;
@@ -163,7 +167,7 @@ export class WwnItem extends Item {
         ui.notifications.error("Unable to find score on char.");
         return;
       }
-      const attrKey = `WWN.scores.${form.score.value}.short`;
+      const attrKey = `CWN.scores.${form.score.value}.short`;
       const rollTitle = `${game.i18n.localize(attrKey)}/${this.name}`;
       let rollData = {
         parts: rollParts,
@@ -174,7 +178,7 @@ export class WwnItem extends Item {
         form: form,
         rollTitle: rollTitle,
       };
-      WwnDice.sendRoll(rollData);
+      CwnDice.sendRoll(rollData);
     };
 
     let buttons = {
@@ -185,7 +189,7 @@ export class WwnItem extends Item {
       },
       cancel: {
         icon: '<i class="fas fa-times"></i>',
-        label: game.i18n.localize("WWN.Cancel"),
+        label: game.i18n.localize("CWN.Cancel"),
         callback: (html) => {},
       },
     };
@@ -271,14 +275,14 @@ export class WwnItem extends Item {
     };
 
     // Roll and return
-    return WwnDice.Roll({
+    return CwnDice.Roll({
       event: options.event,
       parts: rollParts,
       data: newData,
       skipDialog: true,
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: game.i18n.format("WWN.roll.formula", { label: label }),
-      title: game.i18n.format("WWN.roll.formula", { label: label }),
+      flavor: game.i18n.format("CWN.roll.formula", { label: label }),
+      title: game.i18n.format("CWN.roll.formula", { label: label }),
     });
   }
 
@@ -336,7 +340,7 @@ export class WwnItem extends Item {
         data.tags.forEach((t) => {
           wTags += formatTag(t.value);
         });
-        wTags += formatTag(CONFIG.WWN.saves[data.save], "fa-skull");
+        wTags += formatTag(CONFIG.CWN.saves[data.save], "fa-skull");
         if (data.missile) {
           wTags += formatTag(
             data.range.short + "/" + data.range.long,
@@ -345,7 +349,15 @@ export class WwnItem extends Item {
         }
         return wTags;
       case "armor":
-        return `${formatTag(CONFIG.WWN.armor[data.type], "fa-tshirt")}`;
+        return `${formatTag(CONFIG.CWN.armor[data.type], "fa-tshirt")}`;
+      case "cyberware":
+        return "";
+      case "cyberdeck":
+        return;
+      case "subject":
+        return
+      case "verb":
+        return;
       case "item":
         return "";
       case "focus":
@@ -357,13 +369,13 @@ export class WwnItem extends Item {
           data.range
         )}${formatTag(data.duration)}${formatTag(data.roll)}`;
         if (data.save) {
-          sTags += formatTag(CONFIG.WWN.saves[data.save], "fa-skull");
+          sTags += formatTag(CONFIG.CWN.saves[data.save], "fa-skull");
         }
         return sTags;
       case "art":
         let roll = "";
         roll += data.roll ? data.roll : "";
-        roll += data.rollTarget ? CONFIG.WWN.roll_type[data.rollType] : "";
+        roll += data.rollTarget ? CONFIG.CWN.roll_type[data.rollType] : "";
         roll += data.rollTarget ? data.rollTarget : "";
         return `${formatTag(data.requirements)}${formatTag(roll)}`;
       case "asset":
@@ -394,13 +406,13 @@ export class WwnItem extends Item {
         }
         // Auto fill checkboxes
         switch (val) {
-          case CONFIG.WWN.tags.melee:
+          case CONFIG.CWN.tags.melee:
             newData.melee = true;
             break;
-          case CONFIG.WWN.tags.slow:
+          case CONFIG.CWN.tags.slow:
             newData.slow = true;
             break;
-          case CONFIG.WWN.tags.missile:
+          case CONFIG.CWN.tags.missile:
             newData.missile = true;
             break;
         }
@@ -435,6 +447,10 @@ export class WwnItem extends Item {
         break;
       case "item":
       case "armor":
+      case "cyberware":
+      case "cyberdeck":
+      case "subject":
+      case "verb":
       case "focus":
       case "ability":
         this.show();
@@ -465,11 +481,11 @@ export class WwnItem extends Item {
       hasDamage: this.hasDamage,
       isSpell: this.type === "spell",
       hasSave: this.hasSave,
-      config: CONFIG.WWN,
+      config: CONFIG.CWN,
     };
 
     // Render the chat card template
-    const template = `systems/wwn/templates/chat/item-card.html`;
+    const template = `systems/cwn/templates/chat/item-card.html`;
     const html = await renderTemplate(template, templateData);
 
     // Basic chat message data

@@ -9,7 +9,7 @@
  * @param {number} slot     The hotbar slot to use
  * @returns {Promise}
  */
-export function createWwnMacro(data, slot) {
+export function createCwnMacro(data, slot) {
   if (data.type !== "Item") return true;
   (async () => {
     const item = fromUuidSync(data.uuid);
@@ -20,7 +20,7 @@ export function createWwnMacro(data, slot) {
     // const item = itemFetch.system;
 
     // Create the macro command
-    const command = `game.wwn.rollItemMacro("${item.name}");`;
+    const command = `game.cwn.rollItemMacro("${item.name}");`;
     let macro = game.macros.find(
       (m) => m.name === item.name && m.command === command
     );
@@ -30,7 +30,7 @@ export function createWwnMacro(data, slot) {
         type: "script",
         img: item.img,
         command: command,
-        flags: { "WWN.itemMacro": true },
+        flags: { "CWN.itemMacro": true },
       });
     }
     await game.user.assignHotbarMacro(macro, slot);

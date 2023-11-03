@@ -12,37 +12,37 @@ export const addChatMessageContextOptions = function (html, options) {
     canvas.tokens.controlled.length && li.find(".dice-roll").length;
   options.push(
     {
-      name: game.i18n.localize("WWN.messages.applyDamage"),
+      name: game.i18n.localize("CWN.messages.applyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
       callback: (li) => applyChatCardDamage(li, 1, 1),
     },
     {
-      name: game.i18n.localize("WWN.messages.applyHealing"),
+      name: game.i18n.localize("CWN.messages.applyHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
       callback: (li) => applyChatCardDamage(li, -1, 1),
     },
     {
-      name: game.i18n.localize("WWN.messages.applyHalfDamage"),
+      name: game.i18n.localize("CWN.messages.applyHalfDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
       callback: (li) => applyChatCardDamage(li, 0.5, 1),
     },
     {
-      name: game.i18n.localize("WWN.messages.applyHalfHealing"),
+      name: game.i18n.localize("CWN.messages.applyHalfHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
       callback: (li) => applyChatCardDamage(li, -0.5, 1),
     },
     {
-      name: game.i18n.localize("WWN.messages.applyDoubleDamage"),
+      name: game.i18n.localize("CWN.messages.applyDoubleDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
       callback: (li) => applyChatCardDamage(li, 2, 1),
     },
     {
-      name: game.i18n.localize("WWN.messages.applyDoubleHealing"),
+      name: game.i18n.localize("CWN.messages.applyDoubleHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
       callback: (li) => applyChatCardDamage(li, -2, 1),
@@ -74,7 +74,7 @@ export const addChatMessageButtons = function (msg, html, data) {
     roll.append(
       $(
         `<div class="dice-damage"><button type="button" data-action="apply-damage" title="` +
-          game.i18n.localize("WWN.messages.applyDamage") +
+          game.i18n.localize("CWN.messages.applyDamage") +
           `"><i class="fas fa-tint"></i></button></div>`
       )
     );
@@ -89,7 +89,7 @@ export const addChatMessageButtons = function (msg, html, data) {
     shockMessage.append(
       $(
         `<div class="dice-damage"><button type="button" data-action="apply-damage" title="` +
-          game.i18n.localize("WWN.messages.applyShockDamage") +
+          game.i18n.localize("CWN.messages.applyShockDamage") +
           `"><i class="fas fa-tint"></i></button></div>`
       )
     );
@@ -129,7 +129,7 @@ async function applyChatCardDamage(roll, multiplier, index) {
       image: image
   };
 
-  const template = "systems/wwn/templates/chat/apply-damage.html";
+  const template = "systems/cwn/templates/chat/apply-damage.html";
   const html = await renderTemplate(template, templateData);
 
   const chatData = {

@@ -1,6 +1,6 @@
-import { WwnActor } from "./entity.js";
-import { WwnFaction } from "./faction.js";
-import { WwnActorSheet } from "./actor-sheet.js";
+import { CwnActor } from "./entity.js";
+import { CwnFaction } from "./faction.js";
+import { CwnActorSheet } from "./actor-sheet.js";
 import {
   FACTION_TAGS,
   FACTION_GOALS,
@@ -11,7 +11,7 @@ import {
 /**
  *  Extend the basic ActorSheet
  */
-export class WwnActorSheetFaction extends WwnActorSheet {
+export class CwnActorSheetFaction extends CwnActorSheet {
   constructor(...args) {
     super(...args);
   }
@@ -24,8 +24,8 @@ export class WwnActorSheetFaction extends WwnActorSheet {
    */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["wwn", "sheet", "actor", "faction"],
-      template: "systems/wwn/templates/actors/faction-sheet.html",
+      classes: ["cwn", "sheet", "actor", "faction"],
+      template: "systems/cwn/templates/actors/faction-sheet.html",
       width: 730,
       height: 625,
       resizable: false,
@@ -87,7 +87,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
   }
 
   getAssetImage(itemType) {
-    const icon_path = "systems/wwn/assets/";
+    const icon_path = "systems/cwn/assets/";
     const imgMap = {
       cunning: "cunning.png",
       force: "force.png",
@@ -133,7 +133,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
         failCallback: () => {
           return;
         },
-        classes: ["wwn"],
+        classes: ["cwn"],
       }
     );
     const s = this.popUpDialog.render(true);
@@ -278,7 +278,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
         failCallback: () => {
           return;
         },
-        classes: ["wwn"],
+        classes: ["cwn"],
       }
     );
     const s = this.popUpDialog.render(true);
@@ -335,7 +335,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
         failCallback: () => {
           return;
         },
-        classes: ["wwn"],
+        classes: ["cwn"],
       }
     );
     const s = this.popUpDialog.render(true);
@@ -350,7 +350,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
     const dialogData = {
       actions: FACTION_ACTIONS,
     };
-    const template = "systems/wwn/templates/actors/dialogs/faction-action.html";
+    const template = "systems/cwn/templates/actors/dialogs/faction-action.html";
     const html = renderTemplate(template, dialogData);
     const _form = async (html) => {
       const form = html[0].querySelector("form");
@@ -384,7 +384,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
         },
       },
       {
-        classes: ["wwn"],
+        classes: ["cwn"],
       }
     );
     this.popUpDialog.render(true);
@@ -397,7 +397,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
     const dialogData = {
       goalArray,
     };
-    const template = "systems/wwn/templates/actors/dialogs/faction-goal.html";
+    const template = "systems/cwn/templates/actors/dialogs/faction-goal.html";
     const html = renderTemplate(template, dialogData);
 
     const _goalForm = async (html) => {
@@ -446,7 +446,7 @@ export class WwnActorSheetFaction extends WwnActorSheet {
         },
       },
       {
-        classes: ["wwn"],
+        classes: ["cwn"],
       }
     );
     this.popUpDialog.render(true);
@@ -583,10 +583,10 @@ export class WwnActorSheetFaction extends WwnActorSheet {
     if (!item) return;
     const performDelete = await new Promise((resolve) => {
       Dialog.confirm({
-        title: game.i18n.format("WWN.Delete", { name: item.name }),
+        title: game.i18n.format("CWN.Delete", { name: item.name }),
         yes: () => resolve(true),
         no: () => resolve(false),
-        content: game.i18n.format("WWN.DeleteContent", {
+        content: game.i18n.format("CWN.DeleteContent", {
           name: item.name,
           actor: this.actor.name,
         }),
