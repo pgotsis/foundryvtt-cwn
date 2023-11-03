@@ -29,6 +29,14 @@
       "flags": {}
     },
     {
+      "name": "edges",
+      "label": "Edges",
+      "system": "cwn",
+      "type": "Item",
+      "private": false,
+      "flags": {}
+    },
+    {
       "name": "armor",
       "label": "Armor",
       "system": "cwn",
