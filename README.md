@@ -1,7 +1,8 @@
-# Worlds Without Number for Foundry VTT (Unofficial)
-Everything you need to play Worlds Without Number in Foundry VTT. This was forked from v1.1.2 of the Old School Essentials project developed by U~man. I have managed to mangle his beautiful project into something that works for Worlds Without Number. All praise should be directed toward him. Any bugs or mistakes are undoubtedly my own.
+# Cities Without Number for Foundry VTT (Unofficial)
+Everything you need to play Cities Without Number in Foundry VTT. This was forked from v1.2.1 of the Worlds Without Number project developed SobranDM. I am mangling what they had already mangled to try and make a viable system for running my own game of Cities.
 
 Find the original OSE project by U~man here: https://gitlab.com/mesfoliesludiques/foundryvtt-ose
+Find the Worlds Without Number Project by SobranDM here: https://github.com/SobranDM/foundryvtt-wwn
 ## Features
 * Calculated Readied/Stowed values, including dynamic tracking of currency weight
 * Calculates total wealth from carried coin, bank, and treaure items
@@ -29,7 +30,7 @@ Find the original OSE project by U~man here: https://gitlab.com/mesfoliesludique
 * Compendium includes weapons, armor, adventuring gear, arts, spells, and foci. Deluxe edition content is not included.
     * Thanks to Gavin over at Necrotic Gnome, the Compendium now includes OSE spells and (some) monsters.
 ## License
-This Foundry VTT system requires the Worlds Without Number rules, available at DrivethruRPG.
+This Foundry VTT system requires the Cities Without Number and Worlds Without Number rules, available at DrivethruRPG.
 
 This third party product is not affiliated with or approved by Sine Nomine Publishing.
 Worlds Without Number is a trademark of Sine Nomine Publishing.
