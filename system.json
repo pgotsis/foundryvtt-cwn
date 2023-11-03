@@ -2,7 +2,7 @@
   "id": "cwn",
   "title": "Cities Without Number",
   "description": "Play Cities Without Number on Foundry VTT",
-  "version": "1.2.1",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": "11",
     "verified": "11",
@@ -10,7 +10,7 @@
   },
   "authors": [
     {
-      "name": "Josh Bingham"
+      "name": "jsbthree"
     }
   ],
   "esmodules": [
@@ -24,7 +24,6 @@
       "name": "instinct",
       "label": "Instinct",
       "system": "cwn",
-      "path": "packs/instinct.db",
       "type": "RollTable",
       "private": false,
       "flags": {}
@@ -33,16 +32,22 @@
       "name": "armor",
       "label": "Armor",
       "system": "cwn",
-      "path": "packs/armor.db",
       "type": "Item",
       "private": false,
       "flags": {}
     },
     {
-      "name": "weapons",
-      "label": "Weapons",
+      "name": "melee-weapons",
+      "label": "Melee and Thrown Weapons",
       "system": "cwn",
-      "path": "packs/weapons.db",
+      "type": "Item",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "name": "ranged-weapons",
+      "label": "Ranged Weapons",
+      "system": "cwn",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -51,7 +56,6 @@
       "name": "cyberware",
       "label": "Cyberware",
       "system": "cwn",
-      "path": "packs/cyberware.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -60,7 +64,6 @@
       "name": "cyberdecks",
       "label": "Cyberdecks",
       "system": "cwn",
-      "path": "packs/cyberdeck.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -69,7 +72,6 @@
       "name": "subjects",
       "label": "Subjects",
       "system": "cwn",
-      "path": "packs/subjects.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -78,7 +80,6 @@
       "name": "verbs",
       "label": "Verbs",
       "system": "cwn",
-      "path": "packs/verbs.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -87,7 +88,6 @@
       "name": "arts",
       "label": "Arts",
       "system": "cwn",
-      "path": "packs/arts.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -96,7 +96,6 @@
       "name": "foci",
       "label": "Foci and Abilities",
       "system": "cwn",
-      "path": "packs/foci.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -105,7 +104,6 @@
       "name": "skills",
       "label": "Skills",
       "system": "cwn",
-      "path": "packs/skills.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -114,16 +112,14 @@
       "name": "spells",
       "label": "Spells",
       "system": "cwn",
-      "path": "packs/spells.db",
       "type": "Item",
       "private": false,
       "flags": {}
     },
     {
-      "name": "adventuring-gear",
-      "label": "Adventuring Gear",
+      "name": "common-operator-gear",
+      "label": "Common Operator Gear",
       "system": "cwn",
-      "path": "packs/adventuring-gear.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -132,7 +128,6 @@
       "name": "magic-items",
       "label": "Magic Items",
       "system": "cwn",
-      "path": "packs/magic-items.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -141,7 +136,6 @@
       "name": "magic-tables",
       "label": "Magic Item Tables",
       "system": "cwn",
-      "path": "packs/magic-tables.db",
       "type": "RollTable",
       "private": false,
       "flags": {}
@@ -150,7 +144,6 @@
       "name": "magic-item-masters",
       "label": "Magic Item Masters",
       "system": "cwn",
-      "path": "packs/magic-item-masters.db",
       "type": "RollTable",
       "private": false,
       "flags": {}
@@ -159,7 +152,6 @@
       "name": "gm-subtables",
       "label": "GM Subtables",
       "system": "cwn",
-      "path": "packs/gm-subtables.db",
       "type": "RollTable",
       "private": false,
       "flags": {}
@@ -168,7 +160,6 @@
       "name": "gm-master-tables",
       "label": "GM Master Tables",
       "system": "cwn",
-      "path": "packs/gm-master-tables.db",
       "type": "RollTable",
       "private": false,
       "flags": {}
@@ -177,7 +168,6 @@
       "name": "creatures-of-a-far-age",
       "label": "Creatures of a Far Age",
       "system": "cwn",
-      "path": "packs/creatures-of-a-far-age.db",
       "type": "Actor",
       "private": false,
       "flags": {}
@@ -186,7 +176,6 @@
       "name": "ose-monsters",
       "label": "OSE Monsters",
       "system": "cwn",
-      "path": "packs/ose-monsters.db",
       "type": "Actor",
       "private": false,
       "flags": {}
@@ -195,7 +184,6 @@
       "name": "ose-spells",
       "label": "OSE Spells",
       "system": "cwn",
-      "path": "packs/ose-spells.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -204,7 +192,6 @@
       "name": "tags",
       "label": "Tags",
       "system": "cwn",
-      "path": "packs/tags.db",
       "type": "JournalEntry",
       "private": false,
       "flags": {}
@@ -213,7 +200,6 @@
       "name": "assets",
       "label": "Assets",
       "system": "cwn",
-      "path": "packs/assets.db",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -229,7 +215,7 @@
   ],
   "gridDistance": 5,
   "gridUnits": "ft",
-  "url": "https://github.com/SobranDM/foundryvtt-cwn",
-  "manifest": "https://github.com/SobranDM/foundryvtt-cwn/releases/latest/download/system.json",
-  "download": "https://github.com/SobranDM/foundryvtt-cwn/releases/download/v1.2.1/cwn.zip"
+  "url": "https://github.com/jsbiii/foundryvtt-cwn",
+  "manifest": "https://github.com/jsbiii/foundryvtt-cwn/releases/latest/download/system.json",
+  "download": "https://github.com/jsbiii/foundryvtt-cwn/releases/download/v0.1.0-alpha/cwn.zip"
 }

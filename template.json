@@ -3,7 +3,8 @@
     "types": [
       "character",
       "monster",
-      "faction"
+      "faction",
+      "vehicle"
     ],
     "templates": {
       "common": {
@@ -57,14 +58,7 @@
           "roll": 0
         },
         "currency": {
-          "cp": 0,
-          "sp": 0,
-          "ep": 0,
-          "gp": 0,
-          "pp": 0,
-          "bank": 0,
-          "total": 0,
-          "share": 100
+          "credits": 0
         }
       },
       "spellcaster": {
