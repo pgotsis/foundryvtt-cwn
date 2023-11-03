@@ -33,7 +33,8 @@ Find the Worlds Without Number Project by SobranDM here: https://github.com/Sobr
 This Foundry VTT system requires the Cities Without Number and Worlds Without Number rules, available at DrivethruRPG.
 
 This third party product is not affiliated with or approved by Sine Nomine Publishing.
-Worlds Without Number is a trademark of Sine Nomine Publishing.
+
+Cities Without Number and Worlds Without Number is a trademark of Sine Nomine Publishing.
 
 Old School Essentials spells and monsters used with permission under Open Game License, originally adapted from the greatest role playing game in the world.
 
