@@ -59,7 +59,11 @@
         },
         "currency": {
           "credits": 0
+        },
+        "cyberdecks":{
+          "enabled": false
         }
+
       },
       "spellcaster": {
         "spells": {
@@ -305,13 +309,12 @@
     },
     "armor": {
       "description": "",
-      "ac": 9,
-      "aac": {
-        "value": 10,
-        "mod": 0
-      },
-      "armorBonus": 0,
-      "type": "light",
+      "mac": 10,
+      "rac": 10,
+      "soak": 0,
+      "traumaMod":0,
+      "subtle":"",
+      "heavyArmorPenalty":0,
       "price": 0,
       "weight": 0
     },

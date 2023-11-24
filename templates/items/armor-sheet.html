@@ -32,29 +32,42 @@
       <div class="flexrow item-footer">
         <div class="stats">
           <div class="form-group">
-            <label title="{{localize 'CWN.ArmorClass'}}">{{localize 'CWN.items.ArmorAAC'}}</label>
+            <label title="{{localize 'CWN.items.ArmorRAC'}}">{{localize 'CWN.items.ArmorRAC'}}</label>
             <div class="form-fields">
-              <input type="number" name="system.aac.value" value="{{system.aac.value}}" data-dtype="Number" />
+              <input type="number" name="system.rac" value="{{system.rac}}" data-dtype="Number" />
             </div>
           </div>
           <div class="form-group">
-            <label title="{{localize 'CWN.items.ArmorBonusHint'}}">{{localize 'CWN.items.ArmorBonus'}}</label>
+            <label title="{{localize 'CWN.items.ArmorMAC'}}">{{localize 'CWN.items.ArmorMAC'}}</label>
             <div class="form-fields">
-              <input type="number" name="system.aac.mod" value="{{system.aac.mod}}" data-dtype="Number" />
+              <input type="number" name="system.mac" value="{{system.mac}}" data-dtype="Number" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label title="{{localize 'CWN.items.Soak'}}">{{localize 'CWN.items.Soak'}}</label>
+            <div class="form-fields">
+              <input type="number" name="system.soak" value="{{system.soak}}" data-dtype="Number" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label title="{{localize 'CWN.items.TraumaMod'}}">{{localize 'CWN.items.TraumaMod'}}</label>
+            <div class="form-fields">
+              <input type="number" name="system.traumaMod" value="{{system.traumaMod}}" data-dtype="Number" />
             </div>
           </div>
         </div>
         <div class="stats">
           <div class="form-group">
-            <label>{{localize 'CWN.armor.type'}}</label>
+            <label title="{{localize 'CWN.items.Subtle'}}">{{localize 'CWN.items.Subtle'}}</label>
             <div class="form-fields">
-              <select name="system.type">
-                {{#select system.type}}
-                <option value=""></option>
-                {{#each config.armor as |armor a|}}
-                <option value="{{a}}">{{armor}}</option>
-                {{/each}} {{/select}}
-              </select>
+              <input type="text" name="system.subtle" value="{{system.subtle}}" data-dtype="Text" />
+            </div>
+          <div class="form-group">
+            <div class="form-group">
+              <label title="{{localize 'CWN.items.HeavyArmorPenaltyLong'}}">{{localize 'CWN.items.HeavyArmorPenalty'}}</label>
+              <div class="form-fields">
+                <input type="number" name="system.heavyArmorPenalty" value="{{system.heavyArmorPenalty}}" data-dtype="Number" />
+              </div>
             </div>
           </div>
           <div class="form-group">

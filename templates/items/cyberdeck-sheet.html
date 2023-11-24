@@ -1,0 +1,69 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+      <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+      <div class="header-col">
+        <div class="flexrow">
+          <h1 class="charname">
+            <input name="name" type="text" value="{{name}}" placeholder="Name" />
+          </h1>
+          <div class="details">
+            <div class="form-group">
+              <label title="{{localize 'CWN.items.Price'}}"><i class="fas
+                fa-circle-dollar"></i></label>
+              <div class="form-fields">
+                <input type="number" name="system.price" value="{{system.price}}" data-dtype="Number" />
+              </div>
+            </div>
+            <div class="form-group">
+                <label title="{{localize 'CWN.items.Weight'}}"><i class="fas fa-weight-hanging"></i></label>
+                <div class="form-fields">
+                  <input type="number" name="system.weight" value="{{system.weight}}" data-dtype="Number" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label title="{{localize 'CWN.items.Quantity'}}"><i class="fas fa-hashtag"></i></label>
+                <div class="form-fields">
+                  <input type="number" name="system.quantity" value="{{system.quantity}}" data-dtype="Number" />
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </header>
+    <section class="sheet-body">
+      <div class="flexrow card-body">
+        <div class="description">
+          {{editor enrichedDescription target="system.description" button=true owner=owner editable=editable
+          async=true}}
+        </div>
+        <div class="flexrow item-footer">
+          <div class="stats">
+            <div class="form-group">
+              <label>{{localize 'CWN.items.BonusAccess'}}</label>
+              <div class="form-fields">
+                <input type="number" name="system.bonusAccess" value="{{system.bonusAccess}}" data-dtype="Number" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>{{localize 'CWN.items.Memory'}}</label>
+              <div class="form-fields">
+                <input type="number" name="system.memory" value="{{system.memory}}" data-dtype="Number" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>{{localize 'CWN.items.Shielding'}}</label>
+              <div class="form-fields">
+                <input type="number" name="system.shielding" value="{{system.shielding}}" data-dtype="Number" />
+              </div>
+            </div>
+            <div class="form-group">
+                <label>{{localize 'CWN.items.Cpu'}}</label>
+                <div class="form-fields">
+                  <input type="number" name="system.cpu" value="{{system.cpu}}" data-dtype="Number" />
+                </div>
+              </div>
+          </div>
+        </div>
+    </section>
+  </form>

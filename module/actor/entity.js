@@ -15,6 +15,7 @@ export class CwnActor extends Actor {
     this.computeEncumbrance();
     this._calculateMovement();
     this.enableSpellcasting();
+    this.enableCyberdeck();
     this.computeEffort();
     this.computeSaves();
     this.setXP();
@@ -669,7 +670,7 @@ export class CwnActor extends Actor {
         return;
       if (c.system.equipped) {
         totalReadied += Math.ceil(c.system.weight * c.system.quantity);
-      } else if (w.system.stowed) {
+      } else if (c.system.stowed) {
         totalStowed += Math.ceil(c.system.weight * c.system.quantity);
       }
     })
