@@ -9,6 +9,8 @@ export const preloadHandlebarsTemplates = async function () {
         'systems/cwn/templates/actors/partials/character-header.html',
         'systems/cwn/templates/actors/partials/character-attributes-tab.html',
         'systems/cwn/templates/actors/partials/character-spells-tab.html',
+        'systems/cwn/templates/actors/partials/character-cyberdeck-tab.html',
+
         'systems/cwn/templates/actors/partials/character-inventory-tab.html',
         'systems/cwn/templates/actors/partials/character-notes-tab.html',
 

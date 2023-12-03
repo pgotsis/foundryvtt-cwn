@@ -17,7 +17,8 @@ export class CwnItem extends Item {
       art: "/systems/cwn/assets/default/art.png",
       cyberdeck: "systems/cwn/assets/default/cyberdeck.png",
       verb: "systems/cwn/assets/default/program.png",
-      subject: "systems/cwn/assets/default/program.png"
+      subject: "systems/cwn/assets/default/program.png",
+      datafile: "systems/cwn/assets/default/program.png"
     };
   }
 
@@ -67,7 +68,10 @@ export class CwnItem extends Item {
         itemData.duration
       );
     }
-    if (itemData.hasOwnProperty("equipped")) {
+    if (itemData.hasOwnProperty("mounted")) {
+      props.push(itemData.mounted ? "Mounted" : "Unmounted");
+    }
+    else if (itemData.hasOwnProperty("equipped")) {
       props.push(itemData.equipped ? "Equipped" : "Not Equipped");
     }
     if (itemData.hasOwnProperty("stowed")) {
@@ -76,7 +80,7 @@ export class CwnItem extends Item {
     if (itemData.hasOwnProperty("prepared")) {
       props.push(itemData.prepared ? "Prepared" : "Not Prepared");
     }
-
+    
     if (!!itemData.roll) {
       const unevaluatedRoll = new Roll(itemData.roll, {
         ...(this.actor?._getRollData() || {}),

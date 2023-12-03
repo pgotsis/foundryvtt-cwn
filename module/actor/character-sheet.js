@@ -41,7 +41,8 @@ export class CwnActorSheetCharacter extends CwnActorSheet {
    */
   _prepareItems(data) {
     // Partition items by category
-    let [items, weapons, armors, abilities, spells, arts, foci, skills, cyberwares, cyberdecks, subjects, verbs] =
+    let [items, weapons, armors, abilities, spells, arts, foci, skills, cyberwares, 
+      cyberdecks, subjects, verbs, datafiles] =
       this.actor.items.reduce(
         (arr, item) => {
           // Classify items into types
@@ -57,9 +58,10 @@ export class CwnActorSheetCharacter extends CwnActorSheet {
           else if (item.type === "cyberdeck") arr[9].push(item);
           else if (item.type === "subject") arr[10].push(item);
           else if (item.type === "verb") arr[11].push(item);
+          else if (item.type === "datafile") arr[12].push(item);
           return arr;
         },
-        [[], [], [], [], [], [], [], [], [], [], [], []]
+        [[], [], [], [], [], [], [], [], [], [], [], [], []]
       );
 
     // Sort spells by level
@@ -121,6 +123,7 @@ export class CwnActorSheetCharacter extends CwnActorSheet {
       cyberdecks: insertionSort(cyberdecks, "name"),
       subjects: insertionSort(subjects, "name"),
       verbs: insertionSort(verbs, "name"),
+      datafiles: insertionSort(datafiles, "name"),
       spells: sortedSpells
     };
 
@@ -369,6 +372,18 @@ export class CwnActorSheetCharacter extends CwnActorSheet {
         },
       });
     });
+    html.find(".item-toggleMount").click(async (ev) => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
+      await item.update({
+        data: {
+          mounted: !item.system.mounted,
+        },
+      });
+    });
+
+
+
 
     html.find(".item-prep").click(async (ev) => {
       const li = $(ev.currentTarget).parents(".item");

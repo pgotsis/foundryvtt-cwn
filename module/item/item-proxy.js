@@ -15,7 +15,8 @@ const itemMappings = {
   skill: CwnItem,
   cyberdeck: CwnItem,
   subject: CwnItem,
-  verb: CwnItem
+  verb: CwnItem,
+  datafile: CwnItem
 };
 
 export const CwnItemProxy = new Proxy(function () {}, {

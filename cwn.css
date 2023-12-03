@@ -469,6 +469,9 @@
   .cwn.sheet.actor .sheet-body .inventory .item-controls .item-unstowed {
     color: rgba(0, 0, 0, 0.2);
   }
+  .cwn.sheet.actor .sheet-body .inventory .item-controls .item-unmounted {
+    color: rgba(0, 0, 0, 0.2);
+  }
   .cwn.sheet.actor .sheet-body .inventory .item-controls .item-unprepared {
     color: rgba(0, 0, 0, 0.2);
   }

@@ -1,2 +1,239 @@
+<section class="flexrow" data-base-size="310">
+  <div class="attribute-group">
+    <ul class="attributes flexrow">
+      <li class="attribute ability-score">
+        <h4 class="attribute-name box-title" title="{{ localize 'CWN.BonusAccess' }}">
+          {{ localize "CWN.BonusAccessShort" }}
+        </h4>
+        <div class="attribute-value">
+          <input name="system.cyberdeck.bonusAccess" type="number" value="{{system.cyberdeck.bonusAccess}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.BonusAccess' }}" disabled />
+        </div>
+        <div class="attribute-value attribute-mod">
+          <input name="system.cyberdeck.currentBonusAccess" type="number" value="{{system.cyberdeck.currentBonusAccess}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.CurrentBonusAccess' }}"/>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="attribute-group">
+    <ul class="attributes flexrow">
+      <li class="attribute ability-score">
+        <h4 class="attribute-name box-title" title="{{ localize 'CWN.Memory' }}">
+          {{ localize "CWN.MemoryShort" }}
+        </h4>
+        <div class="attribute-value">
+          <input name="system.cyberdeck.memory" type="number" value="{{system.cyberdeck.memory}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.Memory' }}" disabled />
+        </div>
+        <div class="attribute-value attribute-mod">
+          <input name="system.cyberdeck.memoryInUse" type="number" value="{{system.cyberdeck.memoryInUse}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.MemoryInUse' }}" disabled/>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="attribute-group">
+    <ul class="attributes flexrow">
+      <li class="attribute ability-score">
+        <h4 class="attribute-name box-title" title="{{ localize 'CWN.Shielding' }}">
+          {{ localize "CWN.ShieldingShort" }}
+        </h4>
+        <div class="attribute-value">
+          <input name="system.cyberdeck.shielding" type="number" value="{{system.cyberdeck.shielding}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.Shielding' }}" disabled />
+        </div>
+        <div class="attribute-value attribute-mod">
+          <input name="system.cyberdeck.currentShielding" type="number" value="{{system.cyberdeck.currentShielding}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.CurrentShielding' }}"/>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="attribute-group">
+    <ul class="attributes flexrow">
+      <li class="attribute ability-score">
+        <h4 class="attribute-name box-title" title="{{ localize 'CWN.CPU' }}">
+          {{ localize "CWN.CPU" }}
+        </h4>
+        <div class="attribute-value">
+          <input name="system.cyberdeck.cpu" type="number" value="{{system.cyberdeck.cpu}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.CPU' }}" disabled />
+        </div>
+        <div class="attribute-value attribute-mod">
+          <input name="system.cyberdeck.cpuInUse" type="number" value="{{system.cyberdeck.cpuInUse}}" data-dtype="Number" placeholder=0
+            title="{{ localize 'CWN.CPUInUse' }}"/>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
 <section class="inventory" data-base-size="310">
-  </section>
+  <div class="inventory-all flexrow">
+    <div class="inventory-left flex3">
+      <div>
+        <li class="item-titles flexrow">
+          <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+          <div class="item-name">{{localize "CWN.items.Cyberdeck"}}</div>
+          <div class="field-short" title="{{localize 'CWN.items.Weight' }}"><i class="fas fa-weight-hanging"></i></div>
+          <div class="item-controls">
+            <a class="item-control item-search" data-type="cyberdeck" title="{{localize 'CWN.Search'}}"><i
+                class="fa fa-search"></i></a>
+            <a class="item-control item-create" data-type="cyberdeck" title="{{localize 'CWN.Add'}}"><i
+                class="fa fa-plus"></i></a>
+          </div>
+        </li>
+        <ol class="item-list">
+          {{#each owned.cyberdecks as |item|}}
+          <li class="item-entry">
+            <div class="item flexrow" data-item-id="{{item.id}}">
+              <div class="item-name item-rollable flexrow">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <a>
+                  <h4 title="{{item.name}}">
+                    {{item.name~}}
+                  </h4>
+                </a>
+              </div>
+              <div class="field-short">
+                <input value="{{item.system.weight}}" type="number" readonly>
+              </div>
+              <div class="item-controls">
+                {{#if ../owner}}
+                <a class="item-control item-toggle {{#unless item.system.equipped}}item-unequipped{{/unless}}"
+                  title='{{localize "CWN.items.Equip"}}'>
+                  <i class="fas fa-tshirt"></i>
+                </a>
+                <a class="item-control stow-toggle {{#unless item.system.stowed}}item-unstowed{{/unless}}"
+                  title='{{localize "CWN.items.stowed"}}'>
+                  <i class="fas fa-archive"></i>
+                </a>
+                <a class="item-control item-edit" title='{{localize "CWN.Edit"}}'><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title='{{localize "CWN.Delete"}}'><i class="fas fa-trash"></i></a>
+                {{/if}}
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+      <div>
+        <li class="item-titles flexrow">
+          <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+          <div class="item-name">{{localize "CWN.items.Datafiles"}}</div>
+          <div class="item-controls">
+            <a class="item-control item-search" data-type="datafile" title="{{localize 'CWN.Search'}}"><i
+                class="fa fa-search"></i></a>
+            <a class="item-control item-create" data-type="datafile" title="{{localize 'CWN.Add'}}"><i
+                class="fa fa-plus"></i></a>
+          </div>
+        </li>
+        <ol class="item-list">
+          {{#each owned.datafiles as |item|}}
+          <li class="item-entry">
+            <div class="item flexrow" data-item-id="{{item.id}}">
+              <div class="item-name item-rollable flexrow">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <a>
+                  <h4 title="{{item.name}}">
+                    {{item.name~}}
+                  </h4>
+                </a>
+              </div>
+              <div class="item-controls">
+                {{#if ../owner}}
+                <a class="item-control item-edit" title='{{localize "CWN.Edit"}}'><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title='{{localize "CWN.Delete"}}'><i class="fas fa-trash"></i></a>
+                {{/if}}
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+      
+    <div class="inventory-right flex3">
+      <div>
+        <li class="item-titles flexrow">
+          <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+          <div class="item-name">{{localize "CWN.items.Verbs"}}</div>
+          <div class="item-controls">
+            <a class="item-control item-search" data-type="verb" title="{{localize 'CWN.Search'}}"><i
+                class="fa fa-search"></i></a>
+            <a class="item-control item-create" data-type="verb" title="{{localize 'CWN.Add'}}"><i
+                class="fa fa-plus"></i></a>
+          </div>
+        </li>
+        <ol class="item-list">
+          {{#each owned.verbs as |item|}}
+          <li class="item-entry">
+            <div class="item flexrow" data-item-id="{{item.id}}">
+              <div class="item-name item-rollable flexrow">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <a>
+                  <h4 title="{{item.name}}">
+                    {{item.name~}}
+                  </h4>
+                </a>
+              </div>
+              <div class="field-short">
+                <input value="{{item.system.accessCost}}" type="number" readonly>
+              </div>
+              <div class="item-controls">
+                {{#if ../owner}}
+                <a class="item-control item-toggleMount {{#unless item.system.mounted}}item-unmounted{{/unless}}"
+                  title='{{localize "CWN.items.Mount"}}'>
+                  <i class="fas fa-download"></i>
+                </a>
+                <a class="item-control item-edit" title='{{localize "CWN.Edit"}}'><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title='{{localize "CWN.Delete"}}'><i class="fas fa-trash"></i></a>
+                {{/if}}
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+      <div>
+        <li class="item-titles flexrow">
+          <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+          <div class="item-name">{{localize "CWN.items.Subjects"}}</div>
+          <div class="field-short" title="{{localize 'CWN.items.SubjectType' }}">{{localize 'CWN.items.SubjectTypeShort' }}</div>
+          <div class="item-controls">
+            <a class="item-control item-search" data-type="subject" title="{{localize 'CWN.Search'}}"><i
+                class="fa fa-search"></i></a>
+            <a class="item-control item-create" data-type="subject" title="{{localize 'CWN.Add'}}"><i
+                class="fa fa-plus"></i></a>
+          </div>
+        </li>
+        <ol class="item-list">
+          {{#each owned.subjects as |item|}}
+          <li class="item-entry">
+            <div class="item flexrow" data-item-id="{{item.id}}">
+              <div class="item-name item-rollable flexrow">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <a>
+                  <h4 title="{{item.name}}">
+                    {{item.name~}}
+                  </h4>
+                </a>
+              </div>
+              <div class="item-controls">
+                {{#if ../owner}}
+                <a class="item-control item-toggleMount {{#unless item.system.mounted}}item-unmounted{{/unless}}"
+                  title='{{localize "CWN.items.Mount"}}'>
+                  <i class="fas fa-download"></i>
+                </a>
+                <a class="item-control item-edit" title='{{localize "CWN.Edit"}}'><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title='{{localize "CWN.Delete"}}'><i class="fas fa-trash"></i></a>
+                {{/if}}
+              </div>
+            </div>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

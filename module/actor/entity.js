@@ -16,6 +16,7 @@ export class CwnActor extends Actor {
     this._calculateMovement();
     this.enableSpellcasting();
     this.enableCyberdeck();
+    this.computerCyberStats();
     this.computeEffort();
     this.computeSaves();
     this.setXP();
@@ -714,26 +715,52 @@ export class CwnActor extends Actor {
       }
     });
 
-    if (game.settings.get("cwn", "currencyTypes") == "currencybx") {
-      const coinWeight =
-        (data.currency.cp +
-          data.currency.sp +
-          data.currency.ep +
-          data.currency.gp +
-          data.currency.pp) /
-        100;
-      totalStowed += coinWeight;
-    } else {
-      const coinWeight =
-        (data.currency.cp + data.currency.sp + data.currency.gp) / 100;
-      totalStowed += coinWeight;
-    }
-
     this.system.encumbrance = {
       readied: { max: maxReadied, value: totalReadied.toFixed(2) },
       stowed: { max: maxStowed, value: totalStowed.toFixed(2) },
     };
   }
+  computerCyberStats(){
+
+    let newBonusAccess = 0;
+    let newMemory = 0;
+    let newMemoryIU = 0;
+    let newShielding = 0;
+    let newCpu = 0;
+
+    const cyberdecks = this.items.filter((c) => c.type == "cyberdeck");
+    const programSkill = this.items.filter((p) => p.type == "skill" && p.name == "Program");
+
+    cyberdecks.forEach((c) => {
+      if (c.system.equipped){
+        newBonusAccess = c.system.bonusAccess + this.system.scores.int.mod + 
+        this.system.scores.int.tweak + programSkill[0].system.ownedLevel;
+        newMemory = c.system.memory;
+        newShielding = c.system.shielding;
+        newCpu = c.system.cpu;
+      }
+    })
+
+    const mountedVerbs = this.items.filter((v) => v.type == "verb" && v.system.mounted).length
+    const mountedSubjects = this.items.filter((s) => s.type == "subject" && s.system.mounted).length
+    const dataFiles = this.items.filter((d) => d.type == "datafile").length
+
+    newMemoryIU = mountedVerbs + mountedSubjects + dataFiles;
+
+    this.system.cyberdeck = {
+      bonusAccess: newBonusAccess,
+      currentBonusAccess: this.system.cyberdeck.currentBonusAccess,
+      memory: newMemory,
+      memoryInUse: newMemoryIU,
+      shielding: newShielding,
+      currentShielding: this.system.cyberdeck.currentShielding,
+      cpu: newCpu,
+      cpuInUse: this.system.cyberdeck.cpuInUse
+    }
+  }
+
+
+
 
   _calculateMovement() {
     if (this.type != "character") return;
@@ -751,7 +778,7 @@ export class CwnActor extends Actor {
       let systemBase = [];
       game.settings.get("cwn", "movementRate") == "movebx"
         ? (systemBase = [40, 30, 20])
-        : (systemBase = [30, 20, 15]);
+        : (systemBase = [10, 7, 5]);
 
       if (readiedValue <= readiedMax && stowedValue <= stowedMax) {
         newBase = systemBase[0] + bonus;
@@ -836,10 +863,8 @@ export class CwnActor extends Actor {
     const data = this.system;
 
     // Compute AC
-    let baseAac = 10;
-    let AacShieldMod = 0;
-    let AacShieldNaked = 0;
-    let naked = baseAac + data.scores.dex.mod + data.aac.mod;
+    let totalMAC = 0;
+    let totalRAC = 0;
     let exertPenalty = 0;
     let sneakPenalty = 0;
 
@@ -848,49 +873,18 @@ export class CwnActor extends Actor {
       if (!a.system.equipped) {
         return;
       }
-      if (a.system.type != "shield") {
-        baseAac = a.system.aac.value + a.system.aac.mod;
-        // Check if armor is medium or heavy and apply appropriate Sneak/Exert penalty
-        if (a.system.type === "medium" && a.system.weight > sneakPenalty) {
-          sneakPenalty = a.system.weight;
-        }
-        if (a.system.type === "heavy" && a.system.weight > sneakPenalty) {
-          sneakPenalty = a.system.weight;
-        }
-        if (a.system.type === "heavy" && a.system.weight > exertPenalty) {
-          exertPenalty = a.system.weight;
-        }
-      } else if (a.system.type == "shield") {
-        AacShieldMod = 1 + a.system.aac.mod;
-        AacShieldNaked = a.system.aac.value + a.system.aac.mod;
-      }
+      totalRAC+= a.system.rac;
+      totalMAC+= a.system.mac;
+      exertPenalty+= a.system.heavyArmorPenalty;
+      sneakPenalty+= a.system.heavyArmorPenalty;
     });
-    if (AacShieldMod > 0) {
-      let shieldOnly = AacShieldNaked + data.scores.dex.mod + data.aac.mod;
-      let shieldBonus =
-        baseAac + data.scores.dex.mod + data.aac.mod + AacShieldMod;
-      if (shieldOnly > shieldBonus) {
-        this.system.aac = {
-          value: shieldOnly,
-          shield: 0,
-          naked,
-          mod: data.aac.mod,
-        };
-      } else {
-        this.system.aac = {
-          value: shieldBonus,
-          shield: AacShieldMod,
-          naked,
-          mod: data.aac.mod,
-        };
-      }
-    } else {
-      this.system.aac = {
-        value: baseAac + data.scores.dex.mod + data.aac.mod,
-        naked,
-        shield: 0,
-        mod: data.aac.mod,
-      };
+    if(totalMAC == 0) {totalMAC = 10;}
+    if(totalRAC == 0) {totalRAC = 10;}
+    totalRAC+=data.scores.dex.mod + data.aac.mod;
+    totalMAC+=data.scores.dex.mod + data.aac.mod;
+    this.system.ac = {
+      rac:totalRAC,
+      mac:totalMAC
     }
     this.system.skills.sneakPenalty = sneakPenalty;
     this.system.skills.exertPenalty = exertPenalty;

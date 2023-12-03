@@ -37,6 +37,11 @@
       {{> "systems/cwn/templates/actors/partials/character-spells-tab.html"}}
     </div>
     {{/if}}
+    {{#if system.cyberdecks.enabled}}
+    <div class="tab" data-group="primary" data-tab="cyberdeck">
+      {{> "systems/cwn/templates/actors/partials/character-cyberdeck-tab.html"}}
+    </div>
+    {{/if}}
     <div class="tab" data-group="primary" data-tab="inventory">
       {{> "systems/cwn/templates/actors/partials/character-inventory-tab.html"}}
     </div>
