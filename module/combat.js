@@ -26,7 +26,7 @@ export class CwnCombat {
     });
 
     // Roll init
-    Object.keys(groups).forEach((group) => {
+    for (const group of Object.keys(groups)) {
       let rollParts = [];
       rollParts.push("1d8");
       if (alertGroups[group]) {
@@ -36,14 +36,14 @@ export class CwnCombat {
         rollParts.push(groupMods[group]);
       }
 
-      let roll = new Roll(rollParts.join("+")).roll({ async: false });
-      roll.toMessage({
+      const roll = await new Roll(rollParts.join("+")).roll({ async: false });
+      await roll.toMessage({
         flavor: game.i18n.format("CWN.roll.initiative", {
           group: CONFIG["CWN"].colors[group],
         }),
       });
       groups[group].initiative = roll.total;
-    });
+    }
 
     // Set init
     for (let i = 0; i < data.combatants.length; ++i) {
@@ -73,27 +73,26 @@ export class CwnCombat {
   static async individualInitiative(combat, data) {
     let updates = [];
     let messages = [];
-    combat.combatants.forEach((c, i) => {
-      // Initialize variables
+    for (const c of combat.combatants) {
       let alert = c.actor.items.filter((a) => a.name == "Alert");
       let roll = null;
       let roll2 = null;
-
-
+    
       // Check if initiative has already been manually rolled
       if (!c.initiative) {
         // Roll initiative
-        roll = new Roll("1d8+" + c.actor.system.initiative.value).roll({ async: false });
-        roll.toMessage({
+        roll = await new Roll("1d8+" + c.actor.system.initiative.value).roll({ async: false });
+        await roll.toMessage({
           flavor: game.i18n.format('CWN.roll.individualInit', { name: c.token.name })
         });
+    
         if (alert.length > 0) {
-          roll2 = new Roll("1d8+" + c.actor.system.initiative.value).roll({ async: false });
-          roll2.toMessage({
+          roll2 = await new Roll("1d8+" + c.actor.system.initiative.value).roll({ async: false });
+          await roll2.toMessage({
             flavor: game.i18n.format('CWN.roll.individualInit', { name: c.token.name })
           });
         }
-
+    
         // Set initiative
         if (alert.length > 0) {
           if (alert[0].system.ownedLevel == 2) {
@@ -101,12 +100,11 @@ export class CwnCombat {
           } else {
             updates.push({ _id: c.id, initiative: Math.max(roll.total, roll2.total) });
           }
-
         } else {
           updates.push({ _id: c.id, initiative: roll.total });
         }
       }
-    });
+    };
     if (game.user.isGM) {
       await combat.updateEmbeddedDocuments("Combatant", updates);
       await CONFIG.ChatMessage.documentClass.create(messages);
@@ -285,7 +283,7 @@ export class CwnCombat {
     if (!actor || data.actorLink || !game.settings.get("cwn", "randomHP")) {
       return token.updateSource(data);
     }
-    const roll = new Roll(token.actor.system.hp.hd).roll({ async: false });
+    const roll = await new Roll(token.actor.system.hp.hd).roll({ async: false });
     setProperty(data, "delta.system.hp.value", roll.total);
     setProperty(data, "delta.system.hp.max", roll.total);
     return token.updateSource(data);

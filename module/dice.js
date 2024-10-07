@@ -100,7 +100,8 @@ export class CwnDice {
       parts.push(form.bonus.value);
     }
 
-    const roll = new Roll(parts.join("+"), data).roll({async: false});
+//    const roll = new Roll(parts.join("+"), data).roll({async: false});
+    const roll = new Roll(parts.join("+"), data);
 
     // Convert the roll to a chat message and return the roll
     let rollMode = game.settings.get("core", "rollMode");
