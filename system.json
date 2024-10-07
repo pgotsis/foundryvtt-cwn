@@ -2,11 +2,11 @@
   "id": "cwn",
   "title": "Cities Without Number",
   "description": "Play Cities Without Number on Foundry VTT",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "compatibility": {
     "minimum": "11",
     "verified": "11",
-    "maximum": "11"
+    "maximum": "12"
   },
   "authors": [
     {
