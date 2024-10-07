@@ -106,7 +106,7 @@ async function migrateSceneData(scene) {
     const t = token.toJSON();
 
     if (!t.actorLink) {
-      const actor = duplicate(t.actorData);
+      const actor = foundry.utils.duplicate(t.actorData);
       actor.type = t.actor?.type;
       const updateData = migrateActorDataToItemSkills(actor);
       if (updateData && updateData.length) {
