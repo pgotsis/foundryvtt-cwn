@@ -36,7 +36,7 @@ export class CwnCombat {
         rollParts.push(groupMods[group]);
       }
 
-      const roll = await new Roll(rollParts.join("+")).roll({ async: false });
+      const roll = await new Roll(rollParts.join("+"));
       await roll.toMessage({
         flavor: game.i18n.format("CWN.roll.initiative", {
           group: CONFIG["CWN"].colors[group],
@@ -81,13 +81,13 @@ export class CwnCombat {
       // Check if initiative has already been manually rolled
       if (!c.initiative) {
         // Roll initiative
-        roll = await new Roll("1d8+" + c.actor.system.initiative.value).roll({ async: false });
+        roll = await new Roll("1d8+" + c.actor.system.initiative.value);
         await roll.toMessage({
           flavor: game.i18n.format('CWN.roll.individualInit', { name: c.token.name })
         });
     
         if (alert.length > 0) {
-          roll2 = await new Roll("1d8+" + c.actor.system.initiative.value).roll({ async: false });
+          roll2 = await new Roll("1d8+" + c.actor.system.initiative.value);
           await roll2.toMessage({
             flavor: game.i18n.format('CWN.roll.individualInit', { name: c.token.name })
           });
@@ -283,7 +283,7 @@ export class CwnCombat {
     if (!actor || data.actorLink || !game.settings.get("cwn", "randomHP")) {
       return token.updateSource(data);
     }
-    const roll = await new Roll(token.actor.system.hp.hd).roll({ async: false });
+    const roll = await new Roll(token.actor.system.hp.hd);
     setProperty(data, "delta.system.hp.value", roll.total);
     setProperty(data, "delta.system.hp.max", roll.total);
     return token.updateSource(data);
