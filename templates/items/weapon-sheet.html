@@ -170,6 +170,20 @@
               </select>
             </div>
           </div>
+          <div class="form-group">
+            <label>{{localize "CWN.items.Stowable"}}</label>
+            <div class="form-fields">
+              <input type="checkbox" name="system.stowed" value="{{system.stowed}}" {{checked
+                system.stowed}} data-dtype="Boolean" title="{{localize 'CWN.items.Stowable'}}" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{localize "CWN.items.Equip"}}</label>
+            <div class="form-fields">
+              <input type="checkbox" name="system.readied" value="{{system.readied}}" {{checked
+                system.readied}} data-dtype="Boolean" title="{{localize 'CWN.items.Equip'}}" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
